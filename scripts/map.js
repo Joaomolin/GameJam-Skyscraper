@@ -14,12 +14,11 @@ export class Map {
     this.floor = [];
     this.objects = [];
     this.building = [];
+    this.placed = [];
     this.playerTile = isometric.player.pos;
     this.player = isometric.player;
 
-    this.createCubeFloor();
-    this.createCubeObjects();
-    this.createBuilding();
+    this.createScene();
   }
 
   mapJsonToArray(layer) {
@@ -35,6 +34,21 @@ export class Map {
     }
 
     return newMap.reverse();
+  }
+
+  createMap(newMap){
+    const newArr = [];
+    for (let y = 0; y < newMap.length; y++) {
+      let arr = [];
+      for (let x = 0; x < newMap[y].length; x++) {
+        let infoToSend = this.getCubesInfo(newMap[y][x]);
+        arr.push(new Tile(new Coordinates(x, y), infoToSend));
+      }
+
+      newArr.push(arr);
+    }
+
+    return newArr;
   }
 
   getCubesInfo(num){
@@ -55,50 +69,11 @@ export class Map {
     return infoToSend;
   }
 
-  createBuilding() {
-    const newMap = this.mapJsonToArray(2);
-
-    for (let y = 0; y < newMap.length; y++) {
-      let arr = [];
-      for (let x = 0; x < newMap[y].length; x++) {
-        let infoToSend = this.getCubesInfo(newMap[y][x]);
-        arr.push(new Tile(new Coordinates(x, y), infoToSend));
-      }
-
-      this.building.push(arr);
-    }
+  createScene() {
+    this.floor = this.createMap(this.mapJsonToArray(0));
+    this.objects = this.createMap(this.mapJsonToArray(1));
+    this.building = this.createMap(this.mapJsonToArray(2));
   }
-
-  createCubeObjects() {
-    const newMap = this.mapJsonToArray(1);
-
-    for (let y = 0; y < newMap.length; y++) {
-      let arr = [];
-      for (let x = 0; x < newMap[y].length; x++) {
-        let infoToSend = this.getCubesInfo(newMap[y][x]);
-        arr.push(new Tile(new Coordinates(x, y), infoToSend));
-      }
-
-      this.objects.push(arr);
-    }
-  }
-
-  createCubeFloor() {
-    const newMap = this.mapJsonToArray(0);
-
-    for (let y = 0; y < newMap.length; y++) {
-      let arr = [];
-      for (let x = 0; x < newMap[y].length; x++) {
-        let infoToSend = this.getCubesInfo(newMap[y][x]);
-        arr.push(new Tile(new Coordinates(x, y), infoToSend));
-      }
-
-      this.floor.push(arr);
-    }
-  }
-
-
-
 
   //Cart
   printCartFloor() {
