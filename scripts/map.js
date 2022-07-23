@@ -56,7 +56,7 @@ export class Map {
 
     switch (num - 1) {
       case 0: infoToSend = CubeSheet.Grass; break;
-      case 9: infoToSend = CubeSheet.SkyScrapper; break;
+      case 9: infoToSend = CubeSheet.SkyScraper; break;
       case 15: infoToSend = CubeSheet.Tree; break;
       case 16: infoToSend = CubeSheet.Sidewalk; break;
 
@@ -74,6 +74,7 @@ export class Map {
     this.objects = this.createMap(this.mapJsonToArray(1));
     this.building = this.createMap(this.mapJsonToArray(2));
   }
+
 
   //Cart
   printCartFloor() {
