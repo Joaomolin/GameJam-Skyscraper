@@ -26,6 +26,7 @@ class SelectedTile {
   }
 }
 const selectedTile = new SelectedTile();
+const mouseGrid = new Coordinates();
 
 const mouse = new Coordinates(canvas.width / 2, canvas.height / 2);
 let printMouseCoordinates = false;
@@ -74,6 +75,8 @@ function printMouseTile() {
 
   var rx = Math.max(IsoConfig.gridStartAt, Math.min(isometric.ScreenToIsoX(mouse.x, mouse.y), IsoConfig.gridEndAt));
   var ry = Math.max(IsoConfig.gridStartAt, Math.min(isometric.ScreenToIsoY(mouse.x, mouse.y), IsoConfig.gridEndAt));
+  mouseGrid.x = Math.floor(isometric.ScreenToIsoX(mouse.x, mouse.y));
+  mouseGrid.y = Math.floor(isometric.ScreenToIsoY(mouse.x, mouse.y));
   const floorX = Math.min(Math.floor(rx), IsoConfig.gridEndAt - 1);
   const floorY = Math.min(Math.floor(ry), IsoConfig.gridEndAt - 1);
 
@@ -89,9 +92,10 @@ function printMouseTile() {
 function updateInfo() {
   infoArr.length = 0;
   infoArr.push(`Mouse: ${mouse.getInString()}`);
-  infoArr.push(`Mouse grid: ${selectedTile.coord.getInString()}`);
-  infoArr.push(`Player: ${player.pos.getInString()} / ${player.dir}`);
-  infoArr.push(`Cam: ${isometric.camera.getInString()}`);
+  infoArr.push(`Mouse grid: ${mouseGrid.getInString()}`);
+  infoArr.push(`Mouse on grid: ${selectedTile.coord.getInString()}`);
+  // infoArr.push(`Player: ${player.pos.getInString()} / ${player.dir}`);
+  // infoArr.push(`Cam: ${isometric.camera.getInString()}`);
 }
 
 function printInfo() {
@@ -102,8 +106,8 @@ function printInfo() {
   ctx.strokeStyle = 'black'
   ctx.globalAlpha = 0.8;
   //Left
-  ctx.strokeRect(0, 0, 170, infoArr.length * 21);
-  ctx.fillRect(0, 0, 170, infoArr.length * 21);
+  ctx.strokeRect(0, 0, 200, infoArr.length * 21);
+  ctx.fillRect(0, 0, 200, infoArr.length * 21);
   //Right
   ctx.strokeRect(800, 0, 300, tipsArr.length * 21);
   ctx.fillRect(800, 0, 300, tipsArr.length * 21);
@@ -116,8 +120,7 @@ function printInfo() {
       ctx.fillText(infoArr[i], 10, 18 + i * 20);
     }
     if (tipsArr[i]){
-      ctx.fillText(tipsArr[i], 810, 18 + i * 20);
-
+      // ctx.fillText(tipsArr[i], 810, 18 + i * 20);
     }
   }
 }

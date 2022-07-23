@@ -4,6 +4,6 @@ export class Coordinates {
         this.y = y;
     }
     getInString(){
-        return `${this.x.toFixed(1)}, ${this.y.toFixed(1)}`;
+        return `${this.x.toFixed(0)}, ${this.y.toFixed(0)}`;
     }
 }

@@ -8,7 +8,7 @@ export class Map {
   constructor(ctx, cartCtx, isometric, selectedTile) {
     this.isoCtx = ctx;
     this.cartCtx = cartCtx;
-    this.cartTileSize = 79;
+    this.cartTileSize = 132;
     this.iso = isometric;
     this.selectedTile = selectedTile;
     this.floor = [];
@@ -17,7 +17,6 @@ export class Map {
     this.playerTile = isometric.player.pos;
     this.player = isometric.player;
 
-    // this.createRealisticMap(gridLastTile);
     this.createCubeFloor();
     this.createCubeObjects();
     this.createBuilding();
@@ -50,22 +49,6 @@ export class Map {
       case 6: infoToSend = CubeSheet.RoadCrossroad; break;
       case 8: infoToSend = CubeSheet.RoadEW; break;
       case 18: infoToSend = CubeSheet.RoadNS; break;
-      default: infoToSend = TilesInfo.Invisible; break;
-    }
-
-    return infoToSend;
-  }
-
-  getTilesBigInfo(num) {
-    let infoToSend;
-
-    switch (num) {
-      case 1: infoToSend = TilesInfo.Grass; break;
-      case 2: infoToSend = TilesInfo.Water; break;
-      case 3: infoToSend = TilesInfo.Dirt; break;
-      case 4: infoToSend = TilesInfo.Snow; break;
-      case 5: infoToSend = TilesInfo.Ice; break;
-      case 6: infoToSend = TilesInfo.Sand; break;
       default: infoToSend = TilesInfo.Invisible; break;
     }
 
@@ -114,27 +97,7 @@ export class Map {
     }
   }
 
-  createRealisticMap(gridLastTile) {
-    for (let y = 0; y < gridLastTile; y++) {
-      let arr = [];
-      for (let x = 0; x < gridLastTile; x++) {
-        let infoToSend = TilesInfo.NiceGrass1;
-        const seed = Math.random();
-        if (seed > 0.25) {
-          infoToSend = TilesInfo.NiceGrass2;
-        }
-        if (seed > 0.50) {
-          infoToSend = TilesInfo.NiceGrass3;
-        }
-        if (seed > 0.75) {
-          infoToSend = TilesInfo.NiceGrass4;
-        }
 
-        arr.push(new Tile(new Coordinates(x, y), infoToSend));
-      }
-      this.floor.push(arr);
-    }
-  }
 
 
   //Cart
@@ -142,30 +105,30 @@ export class Map {
     this.cartCtx.clearRect(0, 0, 10000, 10000);
     this.cartCtx.lineWidth = 3;
 
-    for (let y = 0; y < 5; y++) {
-      for (let x = 0; x < 5; x++) {
+    for (let y = 0; y < 6; y++) {
+      for (let x = 0; x < 6; x++) {
         this.printCartFloorTile(x, y);
       }
     }
   }
 
   printCartFloorTile(x, y) {
-    const xCoord = Math.floor(this.selectedTile.coord.x) + (x - 2);
-    const yCoord = Math.floor(this.selectedTile.coord.y) + (y - 2);
+    const xCoord = 6 + (x - 1);
+    const yCoord = 6 + (y - 1);
     if (xCoord >= 0 && yCoord >= 0 && xCoord < this.floor[y].length && yCoord < this.floor.length) {
       const tile = this.floor[yCoord][xCoord];
 
       this.cartCtx.fillStyle = tile.color;
 
       this.cartCtx.fillRect(
-        x * this.cartTileSize + 2,
+        x * this.cartTileSize + 3,
         y * this.cartTileSize + 3,
         this.cartTileSize,
         this.cartTileSize
       );
 
       this.cartCtx.strokeRect(
-        x * this.cartTileSize + 2,
+        x * this.cartTileSize + 3,
         y * this.cartTileSize + 3,
         this.cartTileSize,
         this.cartTileSize
