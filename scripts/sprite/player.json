@@ -1,0 +1,69 @@
+{
+    "PlayerIcon": {
+        "sheetPosX": 24,
+        "sheetPosY": 48,
+        "sheetPosWidth": 24,
+        "sheetPosHeight": 48,
+        "src": "./assets/IsometricPlayer.png",
+        "color": "#684818"
+    }, 
+    "Directions" : {
+        "PlayerFacingNW": {
+            "sheetPosX": 0,
+            "sheetPosY": 0,
+            "sheetPosWidth": 24,
+            "sheetPosHeight": 48,
+            "src": "./assets/IsometricPlayer.png",
+            "color": "#684818"
+        },"PlayerFacingN": {
+            "sheetPosX": 24,
+            "sheetPosY": 0,
+            "sheetPosWidth": 24,
+            "sheetPosHeight": 48,
+            "src": "./assets/IsometricPlayer.png",
+            "color": "#684818"
+        },"PlayerFacingNE": {
+            "sheetPosX": 48,
+            "sheetPosY": 0,
+            "sheetPosWidth": 24,
+            "sheetPosHeight": 48,
+            "src": "./assets/IsometricPlayer.png",
+            "color": "#684818"
+        },"PlayerFacingW": {
+            "sheetPosX": 0,
+            "sheetPosY": 48,
+            "sheetPosWidth": 24,
+            "sheetPosHeight": 48,
+            "src": "./assets/IsometricPlayer.png",
+            "color": "#684818"
+        },"PlayerFacingE": {
+            "sheetPosX": 48,
+            "sheetPosY": 48,
+            "sheetPosWidth": 24,
+            "sheetPosHeight": 48,
+            "src": "./assets/IsometricPlayer.png",
+            "color": "#684818"
+        },"PlayerFacingSW": {
+            "sheetPosX": 0,
+            "sheetPosY": 96,
+            "sheetPosWidth": 24,
+            "sheetPosHeight": 48,
+            "src": "./assets/IsometricPlayer.png",
+            "color": "#684818"
+        },"PlayerFacingS": {
+            "sheetPosX": 24,
+            "sheetPosY": 96,
+            "sheetPosWidth": 24,
+            "sheetPosHeight": 48,
+            "src": "./assets/IsometricPlayer.png",
+            "color": "#684818"
+        },"PlayerFacingSE": {
+            "sheetPosX": 48,
+            "sheetPosY": 96,
+            "sheetPosWidth": 24,
+            "sheetPosHeight": 48,
+            "src": "./assets/IsometricPlayer.png",
+            "color": "#684818"
+        }
+    }
+}

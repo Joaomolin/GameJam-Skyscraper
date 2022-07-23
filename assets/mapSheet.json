@@ -1,0 +1,84 @@
+{
+    "Grass": {
+        "sheetPosX": 0,
+        "sheetPosY": 0,
+        "sheetPosWidth": 64,
+        "sheetPosHeight": 64,
+        "xOffset": 0,
+        "yOffset": 0,
+        "xSize": 0,
+        "ySize": 0,
+        "src": "./assets/CubeSheet.png",
+        "color": "#91db69"
+    }
+    
+    ,"SkyScrapper": {
+        "sheetPosX": 576,
+        "sheetPosY": 0,
+        "sheetPosWidth": 64,
+        "sheetPosHeight": 64,
+        "xOffset": 0,
+        "yOffset": 0,
+        "xSize": 64,
+        "ySize": 32,
+        "src": "./assets/CubeSheet.png",
+        "color": "#afafaf"
+    },"Sidewalk": {
+        "sheetPosX": 384,
+        "sheetPosY": 64,
+        "sheetPosWidth": 64,
+        "sheetPosHeight": 64,
+        "xOffset": 0,
+        "yOffset": 0,
+        "xSize": 64,
+        "ySize": 32,
+        "src": "./assets/CubeSheet.png",
+        "color": "#b5b5b5"
+    },"Tree": {
+        "sheetPosX": 320,
+        "sheetPosY": 64,
+        "sheetPosWidth": 64,
+        "sheetPosHeight": 64,
+        "xOffset": 0,
+        "yOffset": 0,
+        "xSize": 64,
+        "ySize": 32,
+        "src": "./assets/CubeSheet.png",
+        "color": "#8cb434"
+    }
+
+    ,"RoadCrossroad": {
+        "sheetPosX": 384,
+        "sheetPosY": 0,
+        "sheetPosWidth": 64,
+        "sheetPosHeight": 64,
+        "xOffset": 0,
+        "yOffset": 0,
+        "xSize": 64,
+        "ySize": 32,
+        "src": "./assets/CubeSheet.png",
+        "color": "#b5b5b5"
+    },"RoadNS": {
+        "sheetPosX": 512,
+        "sheetPosY": 64,
+        "sheetPosWidth": 64,
+        "sheetPosHeight": 64,
+        "xOffset": 0,
+        "yOffset": 0,
+        "xSize": 64,
+        "ySize": 32,
+        "src": "./assets/CubeSheet.png",
+        "color": "#303030"
+    },"RoadEW": {
+        "sheetPosX": 512,
+        "sheetPosY": 0,
+        "sheetPosWidth": 64,
+        "sheetPosHeight": 64,
+        "xOffset": 0,
+        "yOffset": 0,
+        "xSize": 64,
+        "ySize": 32,
+        "src": "./assets/CubeSheet.png",
+        "color": "#303030"
+    }
+}

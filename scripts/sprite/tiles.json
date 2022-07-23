@@ -1,0 +1,130 @@
+{
+    "FlatTilesBigGrass": {
+        "sheetPosX": 0,
+        "sheetPosY": 0,
+        "sheetPosWidth": 64,
+        "sheetPosHeight": 64,
+        "src": "./assets/FlatTilesBig.png",
+        "color": "#91db69"
+    },"FlatTilesGrass": {
+        "sheetPosX": 0,
+        "sheetPosY": 0,
+        "sheetPosWidth": 64,
+        "sheetPosHeight": 64,
+        "src": "./assets/FlatTiles.png",
+        "color": "#91db69"
+    },"FlatTilesBigWater": {
+        "sheetPosX": 64,
+        "sheetPosY": 0,
+        "sheetPosWidth": 64,
+        "sheetPosHeight": 64,
+        "src": "./assets/FlatTilesBig.png",
+        "color": "#52c6ff"
+    },"FlatTilesWater": {
+        "sheetPosX": 64,
+        "sheetPosY": 0,
+        "sheetPosWidth": 64,
+        "sheetPosHeight": 64,
+        "src": "./assets/FlatTiles.png",
+        "color": "#52c6ff"
+    },"FlatTilesBigDirt": {
+        "sheetPosX": 128,
+        "sheetPosY": 0,
+        "sheetPosWidth": 64,
+        "sheetPosHeight": 64,
+        "src": "./assets/FlatTilesBig.png",
+        "color": "#e6904e"
+    },"FlatTilesDirt": {
+        "sheetPosX": 128,
+        "sheetPosY": 0,
+        "sheetPosWidth": 64,
+        "sheetPosHeight": 64,
+        "src": "./assets/FlatTiles.png",
+        "color": "#e6904e"
+    },
+
+    "NiceGrass1": {
+        "sheetPosX": 0,
+        "sheetPosY": 0,
+        "sheetPosWidth": 64,
+        "sheetPosHeight": 64,
+        "src": "./assets/NiceGrass.png",
+        "color": "#8de95b"
+    },"NiceGrass2": {
+        "sheetPosX": 192,
+        "sheetPosY": 0,
+        "sheetPosWidth": 64,
+        "sheetPosHeight": 64,
+        "src": "./assets/NiceGrass.png",
+        "color": "#91db69"
+    },"NiceGrass3": {
+        "sheetPosX": 256,
+        "sheetPosY": 0,
+        "sheetPosWidth": 64,
+        "sheetPosHeight": 64,
+        "src": "./assets/NiceGrass.png",
+        "color": "#94d074"
+    },"NiceGrass4": {
+        "sheetPosX": 320,
+        "sheetPosY": 0,
+        "sheetPosWidth": 64,
+        "sheetPosHeight": 64,
+        "src": "./assets/NiceGrass.png",
+        "color": "#6bce35"
+    },
+
+
+
+    "Invisible": {
+        "sheetPosX": -64,
+        "sheetPosY": 0,
+        "sheetPosWidth": 64,
+        "sheetPosHeight": 64,
+        "src": "./assets/FlatTilesBig.png",
+        "color": "#91db69   "
+    },"Grass": {
+        "sheetPosX": 0,
+        "sheetPosY": 0,
+        "sheetPosWidth": 64,
+        "sheetPosHeight": 64,
+        "src": "./assets/FlatTilesBig.png",
+        "color": "#91db69   "
+    },"Water": {
+        "sheetPosX": 64,
+        "sheetPosY": 0,
+        "sheetPosWidth": 64,
+        "sheetPosHeight": 64,
+        "src": "./assets/FlatTilesBig.png",
+        "color": "#52c6ff"
+    },"Dirt": {
+        "sheetPosX": 128,
+        "sheetPosY": 0,
+        "sheetPosWidth": 64,
+        "sheetPosHeight": 64,
+        "src": "./assets/FlatTilesBig.png",
+        "color": "#e6904e"
+    },"Snow": {
+        "sheetPosX": 192,
+        "sheetPosY": 0,
+        "sheetPosWidth": 64,
+        "sheetPosHeight": 64,
+        "src": "./assets/FlatTilesBig.png",
+        "color": "#ffffff"
+    },"Ice": {
+        "sheetPosX": 256,
+        "sheetPosY": 0,
+        "sheetPosWidth": 64,
+        "sheetPosHeight": 64,
+        "src": "./assets/FlatTilesBig.png",
+        "color": "#8ff8e2"
+    },"Sand": {
+        "sheetPosX": 320,
+        "sheetPosY": 0,
+        "sheetPosWidth": 64,
+        "sheetPosHeight": 64,
+        "src": "./assets/FlatTilesBig.png",
+        "color": "#fffdb5"
+    }
+
+
+}

@@ -1,0 +1,64 @@
+{
+    "Info": {
+        "src": "./assets/WalkingSkeleton128x128.png",
+        "tileSize": 128
+    },
+    "Sheet": {
+        "W": {
+            "sheetPosX": 0,
+            "sheetPosY": 0,
+            "sheetPosWidth": 128,
+            "sheetPosHeight": 128,
+            "src": "./assets/WalkingSkeleton128x128.png"
+        },
+        "NW": {
+            "sheetPosX": 0,
+            "sheetPosY": 128,
+            "sheetPosWidth": 128,
+            "sheetPosHeight": 128,
+            "src": "./assets/WalkingSkeleton128x128.png"
+        },
+        "N": {
+            "sheetPosX": 0,
+            "sheetPosY": 256,
+            "sheetPosWidth": 128,
+            "sheetPosHeight": 128,
+            "src": "./assets/WalkingSkeleton128x128.png"
+        },
+        "NE": {
+            "sheetPosX": 0,
+            "sheetPosY": 384,
+            "sheetPosWidth": 128,
+            "sheetPosHeight": 128,
+            "src": "./assets/WalkingSkeleton128x128.png"
+        },
+        "E": {
+            "sheetPosX": 0,
+            "sheetPosY": 512,
+            "sheetPosWidth": 128,
+            "sheetPosHeight": 128,
+            "src": "./assets/WalkingSkeleton128x128.png"
+        },
+        "SE": {
+            "sheetPosX": 0,
+            "sheetPosY": 640,
+            "sheetPosWidth": 128,
+            "sheetPosHeight": 128,
+            "src": "./assets/WalkingSkeleton128x128.png"
+        },
+        "S": {
+            "sheetPosX": 0,
+            "sheetPosY": 768,
+            "sheetPosWidth": 128,
+            "sheetPosHeight": 128,
+            "src": "./assets/WalkingSkeleton128x128.png"
+        },
+        "SW": {
+            "sheetPosX": 0,
+            "sheetPosY": 896,
+            "sheetPosWidth": 128,
+            "sheetPosHeight": 128,
+            "src": "./assets/WalkingSkeleton128x128.png"
+        }
+    }
+}
