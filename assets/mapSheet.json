@@ -22,7 +22,7 @@
         "xSize": 64,
         "ySize": 32,
         "src": "./assets/CubeSheet.png",
-        "color": "#b17769"
+        "color": "#d38f7e"
     },"Phone": {
         "sheetPosX": 576,
         "sheetPosY": 192,

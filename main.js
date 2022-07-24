@@ -91,7 +91,7 @@ function updateInfo() {
   infoArr.length = 0;
   infoArr.push(`Mouse: ${mouse.getInString()}`);
   infoArr.push(`Mouse grid: ${mouseGrid.getInString()}`);
-  infoArr.push(`Mouse on grid: ${selectedTile.coord.getInString(-5)}`);
+  infoArr.push(`Mouse on grid: ${selectedTile.coord.getInString()}`);
   // infoArr.push(`Player: ${player.pos.getInString()} / ${player.dir}`);
   // infoArr.push(`Cam: ${isometric.camera.getInString()}`);
 }
@@ -120,7 +120,7 @@ function printInfo() {
 
 runFrame();
 
-canvas.addEventListener('click', function (e) {
+canvas.addEventListener('mousemove', function (e) {
   if (selectedTile.coord.x === mouseGrid.x && selectedTile.coord.y === mouseGrid.y){
     skyscraper.upgradeTile();
   }

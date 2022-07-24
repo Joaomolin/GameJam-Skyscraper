@@ -9,7 +9,7 @@ export class Isometric {
         this.IsoW = Config.cellWidth;
         this.IsoH = Config.cellHeight;
         this.IsoX = 400;
-        this.IsoY = -100;
+        this.IsoY = -150;
     }
 
 

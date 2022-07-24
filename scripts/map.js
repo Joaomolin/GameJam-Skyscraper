@@ -11,7 +11,7 @@ export class Map {
     this.cartTileSize = 132;
     this.iso = isometric;
     this.selectedTile = selectedTile;
-    this.floors = 5;
+    this.floors = 1;
     this.floor = [];
     this.objects = [];
     this.building = [];
