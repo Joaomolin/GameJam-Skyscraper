@@ -5,13 +5,13 @@ import TilesInfo from "./sprite/tiles.json" assert { type: "json" };
 import IsoConfig from "../isometricConfig.json" assert { type: "json" };
 import { Coordinates } from "./coordinates.js";
 export class Map {
-  constructor(ctx, cartCtx, isometric, selectedTile) {
+  constructor(ctx, cartCtx, isometric, selectedTile, game) {
     this.isoCtx = ctx;
     this.cartCtx = cartCtx;
     this.cartTileSize = 132;
     this.iso = isometric;
     this.selectedTile = selectedTile;
-    this.floors = 1;
+    this.game = game;
     this.floor = [];
     this.objects = [];
     this.building = [];
@@ -57,6 +57,7 @@ export class Map {
 
     switch (num - 1) {
       case 0: infoToSend = CubeSheet.Grass; break;
+      case 1: infoToSend = CubeSheet.Worker; break;
       case 9: infoToSend = CubeSheet.SkyScraper; break;
       case 15: infoToSend = CubeSheet.Tree; break;
       case 16: infoToSend = CubeSheet.Sidewalk; break;
@@ -125,19 +126,19 @@ export class Map {
     //Map floor
     for (let y = 0; y < this.floor.length; y++) {
       for (let x = 0; x < this.floor[y].length; x++) {
-        this.printIsoFloorTile(this.floor[x][y], this.floors);
+        this.printIsoFloorTile(this.floor[x][y], this.game.floors);
       }
     }
 
     //Map objects
     for (let y = 0; y < this.objects.length; y++) {
       for (let x = 0; x < this.objects[y].length; x++) {
-        this.printFloorObject(this.objects[x][y], this.floors + 1);
+        this.printFloorObject(this.objects[x][y], this.game.floors + 1);
       }
     }
 
     //Building
-    for (let z = this.floors; z >= 1; z--){
+    for (let z = this.game.floors; z >= 1; z--){
       for (let y = 0; y < this.building.length; y++) {
         for (let x = 0; x < this.building[y].length; x++) {
           this.printIsoFloorTile(this.building[x][y], z);

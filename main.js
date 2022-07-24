@@ -9,6 +9,7 @@ import IsoConfig from "./isometricConfig.json" assert { type: "json" };
 import SkeletonInfo from "./scripts/sprite/skeleton.json" assert {type: 'json'};
 import { Keyboard } from "./scripts/keyboard.js";
 import { Skyscraper } from "./scripts/game/skyscraper.js";
+import { Game } from "./scripts/game/game.js";
 
 var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");
@@ -16,9 +17,8 @@ var cartCanvas = document.getElementById("cartesian");
 var cartCtx = cartCanvas.getContext("2d");
 var runCanvas = true;
 let shouldPrintInfo = true;
-//Info arrays
+let printMouseCoordinates = false;
 let infoArr = ["Debug =D"];
-//Grid tiles
 class SelectedTile {
   constructor() {
     this.coord = new Coordinates();
@@ -29,11 +29,11 @@ const selectedTile = new SelectedTile();
 const mouseGrid = new Coordinates();
 
 const mouse = new Coordinates(canvas.width / 2, canvas.height / 2);
-let printMouseCoordinates = false;
 const keyboard = new Keyboard();
 const player = new Player(keyboard);
 const isometric = new Isometric(mouse, player);
-const map = new Map(ctx, cartCtx, isometric, selectedTile);
+const game = new Game();
+const map = new Map(ctx, cartCtx, isometric, selectedTile, game);
 const debugGrid = new DebugOptions(ctx, isometric);
 const skyscraper = new Skyscraper(map);
 
@@ -89,11 +89,13 @@ function printMouseTile() {
 
 function updateInfo() {
   infoArr.length = 0;
-  infoArr.push(`Mouse: ${mouse.getInString()}`);
-  infoArr.push(`Mouse grid: ${mouseGrid.getInString()}`);
-  infoArr.push(`Mouse on grid: ${selectedTile.coord.getInString()}`);
+  // infoArr.push(`Mouse: ${mouse.getInString()}`);
+  // infoArr.push(`Mouse grid: ${mouseGrid.getInString()}`);
+  // infoArr.push(`Mouse on grid: ${selectedTile.coord.getInString()}`);
   // infoArr.push(`Player: ${player.pos.getInString()} / ${player.dir}`);
   // infoArr.push(`Cam: ${isometric.camera.getInString()}`);
+  infoArr.push(`Floors: ${game.floors}`);
+  infoArr.push(`Sec left: ${game.secondsLeft}`);
 }
 
 function printInfo() {
@@ -103,7 +105,7 @@ function printInfo() {
   ctx.fillStyle = 'white';
   ctx.strokeStyle = 'black'
   ctx.globalAlpha = 0.8;
-  //Left
+
   ctx.strokeRect(0, 0, 200, infoArr.length * 21);
   ctx.fillRect(0, 0, 200, infoArr.length * 21);
 

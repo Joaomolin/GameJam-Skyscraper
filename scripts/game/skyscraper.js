@@ -43,7 +43,6 @@ export class Skyscraper {
         for (let y = 5; y < 11; y++) {
             for (let x = 5; x < 11; x++) {
                 if (this.map.placed[y][x].color == '#9b9b9b') {
-                    console.log(`${x}, ${y}`)
                     return true;
                 }
             }
@@ -55,7 +54,8 @@ export class Skyscraper {
     }
 
     goToNextFloor() {
-        this.map.floors++;
+        this.map.game.resetTimer();
+        this.map.game.floors++;
 
         for (let y = 0; y < this.map.placed.length; y++) {
             for (let x = 0; x < this.map.placed[y].length; x++) {
