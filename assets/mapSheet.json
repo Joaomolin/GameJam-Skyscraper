@@ -11,6 +11,41 @@
         "src": "./assets/CubeSheet.png",
         "color": "#91db69"
     }
+
+    ,"Worker": {
+        "sheetPosX": 576,
+        "sheetPosY": 128,
+        "sheetPosWidth": 64,
+        "sheetPosHeight": 64,
+        "xOffset": 0,
+        "yOffset": 0,
+        "xSize": 64,
+        "ySize": 32,
+        "src": "./assets/CubeSheet.png",
+        "color": "#b17769"
+    },"Phone": {
+        "sheetPosX": 576,
+        "sheetPosY": 192,
+        "sheetPosWidth": 64,
+        "sheetPosHeight": 64,
+        "xOffset": 0,
+        "yOffset": 0,
+        "xSize": 64,
+        "ySize": 32,
+        "src": "./assets/CubeSheet.png",
+        "color": "#c8c59a"
+    },"Printer": {
+        "sheetPosX": 512,
+        "sheetPosY": 128,
+        "sheetPosWidth": 64,
+        "sheetPosHeight": 64,
+        "xOffset": 0,
+        "yOffset": 0,
+        "xSize": 64,
+        "ySize": 32,
+        "src": "./assets/CubeSheet.png",
+        "color": "#831113"
+    }
     
     ,"SkyScraper": {
         "sheetPosX": 576,

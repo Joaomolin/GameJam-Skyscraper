@@ -8,6 +8,7 @@ import { Tile } from "./scripts/tile.js";
 import IsoConfig from "./isometricConfig.json" assert { type: "json" };
 import SkeletonInfo from "./scripts/sprite/skeleton.json" assert {type: 'json'};
 import { Keyboard } from "./scripts/keyboard.js";
+import { Skyscraper } from "./scripts/game/skyscraper.js";
 
 var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");
@@ -17,7 +18,6 @@ var runCanvas = true;
 let shouldPrintInfo = true;
 //Info arrays
 let infoArr = ["Debug =D"];
-let tipsArr = ["Use WASD to walk", "Use R to run", "Move camera with mouse", "C to disable snap to player"];
 //Grid tiles
 class SelectedTile {
   constructor() {
@@ -35,12 +35,10 @@ const player = new Player(keyboard);
 const isometric = new Isometric(mouse, player);
 const map = new Map(ctx, cartCtx, isometric, selectedTile);
 const debugGrid = new DebugOptions(ctx, isometric);
+const skyscraper = new Skyscraper(map);
 
 //Cart
 function runFrame() {
-  // isometric.updateCamera();
-
-  player.movePlayer();
   map.printMap();
   printMouseTile();
 
@@ -93,7 +91,7 @@ function updateInfo() {
   infoArr.length = 0;
   infoArr.push(`Mouse: ${mouse.getInString()}`);
   infoArr.push(`Mouse grid: ${mouseGrid.getInString()}`);
-  infoArr.push(`Mouse on grid: ${selectedTile.coord.getInString()}`);
+  infoArr.push(`Mouse on grid: ${selectedTile.coord.getInString(-5)}`);
   // infoArr.push(`Player: ${player.pos.getInString()} / ${player.dir}`);
   // infoArr.push(`Cam: ${isometric.camera.getInString()}`);
 }
@@ -108,25 +106,25 @@ function printInfo() {
   //Left
   ctx.strokeRect(0, 0, 200, infoArr.length * 21);
   ctx.fillRect(0, 0, 200, infoArr.length * 21);
-  //Right
-  ctx.strokeRect(800, 0, 300, tipsArr.length * 21);
-  ctx.fillRect(800, 0, 300, tipsArr.length * 21);
 
   //Text
   ctx.fillStyle = "black";
   ctx.globalAlpha = 1;
-  for (var i = 0; i < Math.max(infoArr.length, tipsArr.length); i++){
+  for (var i = 0; i < infoArr.length; i++){
     if (infoArr[i]){
       ctx.fillText(infoArr[i], 10, 18 + i * 20);
     }
-    if (tipsArr[i]){
-      // ctx.fillText(tipsArr[i], 810, 18 + i * 20);
-    }
+
   }
 }
 
 runFrame();
 
+canvas.addEventListener('click', function (e) {
+  if (selectedTile.coord.x === mouseGrid.x && selectedTile.coord.y === mouseGrid.y){
+    skyscraper.upgradeTile();
+  }
+});
 
 document.addEventListener('keyup', function (e) {
   keyboard.keyUp(e.key);
@@ -134,6 +132,17 @@ document.addEventListener('keyup', function (e) {
 
 document.addEventListener('keydown', function (e) {
   keyboard.keyDown(e.key);
+});
+
+window.addEventListener('wheel', function (e) {
+  if (e.deltaY < 0) {
+    map.floors++;
+  }
+  if (e.deltaY > 0) {
+    if (map.floors > 1){
+      map.floors--;
+    }
+  }
 });
 
 const showDebugInfoBtn = document.getElementById("showDebugInfoBtn");

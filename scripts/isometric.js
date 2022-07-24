@@ -8,8 +8,8 @@ export class Isometric {
         this.player = player;
         this.IsoW = Config.cellWidth;
         this.IsoH = Config.cellHeight;
-        this.IsoX = 300;
-        this.IsoY = 50;
+        this.IsoX = 400;
+        this.IsoY = -100;
     }
 
 

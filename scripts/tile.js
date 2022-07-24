@@ -10,5 +10,7 @@ export class Tile {
 
         //Cart
         this.color = sprite.color;
+
+        this.info = sprite;
     }
 }

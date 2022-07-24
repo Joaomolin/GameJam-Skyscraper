@@ -1,7 +1,7 @@
 {
 
-    "cellWidth": 32,
-    "cellHeight": 16,
+    "cellWidth": 48,
+    "cellHeight": 24,
     "gridStartAt": 5,
     "gridEndAt": 11
 }

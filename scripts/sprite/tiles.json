@@ -81,7 +81,7 @@
         "sheetPosWidth": 64,
         "sheetPosHeight": 64,
         "src": "./assets/FlatTilesBig.png",
-        "color": "#91db69   "
+        "color": "#9b9b9b"
     },"Grass": {
         "sheetPosX": 0,
         "sheetPosY": 0,

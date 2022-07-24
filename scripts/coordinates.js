@@ -3,7 +3,7 @@ export class Coordinates {
         this.x = x;
         this.y = y;
     }
-    getInString(){
-        return `${this.x.toFixed(0)}, ${this.y.toFixed(0)}`;
+    getInString(offset = 0){
+        return `${(this.x + offset).toFixed(0)}, ${(this.y + offset).toFixed(0)}`;
     }
 }

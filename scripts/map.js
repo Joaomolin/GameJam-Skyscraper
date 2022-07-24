@@ -11,6 +11,7 @@ export class Map {
     this.cartTileSize = 132;
     this.iso = isometric;
     this.selectedTile = selectedTile;
+    this.floors = 5;
     this.floor = [];
     this.objects = [];
     this.building = [];
@@ -73,6 +74,7 @@ export class Map {
     this.floor = this.createMap(this.mapJsonToArray(0));
     this.objects = this.createMap(this.mapJsonToArray(1));
     this.building = this.createMap(this.mapJsonToArray(2));
+    this.placed = this.createMap(this.mapJsonToArray(3));
   }
 
 
@@ -92,7 +94,7 @@ export class Map {
     const xCoord = 6 + (x - 1);
     const yCoord = 6 + (y - 1);
     if (xCoord >= 0 && yCoord >= 0 && xCoord < this.floor[y].length && yCoord < this.floor.length) {
-      const tile = this.floor[yCoord][xCoord];
+      const tile = this.placed[yCoord][xCoord];
 
       this.cartCtx.fillStyle = tile.color;
 
@@ -119,27 +121,37 @@ export class Map {
   //Iso
   printIsoFloor() {
     this.isoCtx.clearRect(0, 0, 10000, 10000);
-    const floors = 2;
 
+    //Map floor
     for (let y = 0; y < this.floor.length; y++) {
       for (let x = 0; x < this.floor[y].length; x++) {
-        this.printIsoFloorTile(this.floor[x][y], floors);
+        this.printIsoFloorTile(this.floor[x][y], this.floors);
       }
     }
 
+    //Map objects
     for (let y = 0; y < this.objects.length; y++) {
       for (let x = 0; x < this.objects[y].length; x++) {
-        this.printFloorObject(this.objects[x][y], floors + 1);
+        this.printFloorObject(this.objects[x][y], this.floors + 1);
       }
     }
 
-    for (let z = floors; z >= 1; z--){
+    //Building
+    for (let z = this.floors; z >= 1; z--){
       for (let y = 0; y < this.building.length; y++) {
         for (let x = 0; x < this.building[y].length; x++) {
           this.printIsoFloorTile(this.building[x][y], z);
         }
       }
     }
+
+    //Main Floor
+    for (let y = 0; y < this.placed.length; y++) {
+      for (let x = 0; x < this.placed[y].length; x++) {
+        this.printFloorObject(this.placed[x][y], 0);
+      }
+    }
+
     
   }
 
