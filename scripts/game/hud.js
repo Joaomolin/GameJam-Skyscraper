@@ -10,7 +10,9 @@ export class Hud {
         this.game = game;
         this.keyboard = keyboard;
 
-        this.itemList = [];
+        this.hudBtns = [];
+        this.selectedBtn = 1;
+
         this.stopwatchSprite = new Sprite(CubeSheet.Stopwatch);
         this.documentSprite = new Sprite(CubeSheet.Document);
         this.printerSprite = new Sprite(CubeSheet.Printer);
@@ -25,18 +27,12 @@ export class Hud {
     startHud() {
         let pos = canvas.width + 8;
         const toSubtract = canvas.width / 3;
-        this.itemList.push(new HudItem('3', this, pos -= toSubtract, CubeSheet.Phone));
-        this.itemList.push(new HudItem('2', this, pos -= toSubtract, CubeSheet.Worker));
-        this.itemList.push(new HudItem('1', this, pos -= toSubtract, CubeSheet.Printer));
-        this.itemList.reverse();
-    }
+        this.hudBtns.push(new HudItem('3', this, pos -= toSubtract, CubeSheet.Phone));
+        this.hudBtns.push(new HudItem('2', this, pos -= toSubtract, CubeSheet.Worker));
+        this.hudBtns.push(new HudItem('1', this, pos -= toSubtract, CubeSheet.Printer));
+        this.hudBtns.reverse();
 
-    update() {
-        for (let i = 0; i < this.itemList.length; i++) {
-            this.itemList[i].isSelected = false;
-        }
-
-        this.itemList[this.keyboard.selectedTile - 1].isSelected = true;
+        this.setSelectedBtn(this.selectedBtn)
     }
 
     draw() {
@@ -58,7 +54,8 @@ export class Hud {
         this.drawStopwatch();
 
     }
-    drawWorkers(){
+
+    drawWorkers() {
         this.ctx.fillText(this.game.totalWorkers, 336, 50);
         this.ctx.fillText(`+${this.game.worker}`, 336, 80);
         this.ctx.drawImage(
@@ -131,8 +128,8 @@ export class Hud {
         this.ctx.font = "25px open-sans";
         this.ctx.lineWidth = 5;
 
-        for (let i = 0; i < this.itemList.length; i++) {
-            const item = this.itemList[i];
+        for (let i = 0; i < this.hudBtns.length; i++) {
+            const item = this.hudBtns[i];
             this.ctx.fillStyle = "#3d7b9a";
             this.ctx.fillRect(item.pos.x, item.pos.y, item.size.x, item.size.y);
             this.ctx.strokeStyle = item.isSelected ? "#fff838" : "#1d536e";
@@ -156,7 +153,42 @@ export class Hud {
     }
 
     getSelectedBtnSprite() {
-        return this.itemList[this.keyboard.selectedTile - 1].sprite.info;
+        for (let i = 0; i < this.hudBtns.length; i++) {
+            if (this.hudBtns[i].isSelected){
+                return this.hudBtns[i].sprite.info;
+            }
+        }
+
+    }
+
+    setSelectedKey(key){
+        switch(key){
+            case '1':
+            case '2':
+            case '3':
+                this.setSelectedBtn(key)
+                break;
+        }
+    }
+
+    setSelectedBtn(selectedKey){
+        for (let i = 0; i < this.hudBtns.length; i++) {
+            this.hudBtns[i].isSelected = false;
+        }
+
+        this.hudBtns[selectedKey - 1].isSelected = true;
+    }
+
+    checkMouseInteraction(mouse) {
+        for (let i = 0; i < this.hudBtns.length; i++) {
+            const pos = this.hudBtns[i].pos;
+            const size = this.hudBtns[i].size;
+            if (mouse.x > pos.x && mouse.x < (pos.x + size.x)){
+                if (mouse.y > pos.y && mouse.y < (pos.y + size.y)){
+                    this.setSelectedKey(`${i + 1}`);
+                }
+            }
+        }
 
     }
 }

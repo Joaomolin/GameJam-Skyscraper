@@ -43,6 +43,7 @@ const skyscraper = new Skyscraper(map, game, hud, keyboard);
 //Cart
 function runFrame() {
   ctx.clearRect(0, 0, 10000, 10000);
+
   skyscraper.drawClouds();
   skyscraper.updateFloor();
   map.draw();
@@ -50,8 +51,7 @@ function runFrame() {
 
 
   updateInfo();
-  // printInfo();
-  hud.update();
+  printInfo();
   hud.draw();
 
 
@@ -99,7 +99,7 @@ function printMouseTile() {
 
 function updateInfo() {
   infoArr.length = 0;
-  // infoArr.push(`Mouse: ${mouse.getInString()}`);
+  infoArr.push(`Mouse: ${mouse.getInString()}`);
   // infoArr.push(`Mouse grid: ${mouseGrid.getInString()}`);
   // infoArr.push(`Mouse on grid: ${selectedTile.coord.getInString()}`);
   // infoArr.push(`Player: ${player.pos.getInString()} / ${player.dir}`);
@@ -109,7 +109,7 @@ function updateInfo() {
 
 function printInfo() {
   if (!shouldPrintInfo) return;
-  ctx.font = "15px open-sans";
+  ctx.font = "20px open-sans";
   ctx.textAlign = 'left';
   ctx.fillStyle = 'white';
   ctx.strokeStyle = 'black'
@@ -134,15 +134,18 @@ runFrame();
 canvas.addEventListener('mousemove', function (e) {
   if (selectedTile.coord.x === mouseGrid.x && selectedTile.coord.y === mouseGrid.y) {
     skyscraper.upgradeTile();
+  } else {
+    hud.checkMouseInteraction(mouse);
   }
 });
 
 document.addEventListener('keyup', function (e) {
-  keyboard.keyUp(e.key);
+  hud.setSelectedKey(e.key);
+  // keyboard.keyUp(e.key);
 });
 
 document.addEventListener('keydown', function (e) {
-  keyboard.keyDown(e.key);
+  // keyboard.keyDown(e.key);
 });
 
 window.addEventListener('wheel', function (e) {
@@ -154,29 +157,4 @@ window.addEventListener('wheel', function (e) {
       game.floors--;
     }
   }
-});
-
-const showDebugInfoBtn = document.getElementById("showDebugInfoBtn");
-showDebugInfoBtn.addEventListener('click', function (e) {
-  shouldPrintInfo = !shouldPrintInfo;
-  runFrame();
-});
-
-const showCartesianBtn = document.getElementById("showCartesianBtn");
-showCartesianBtn.addEventListener('click', function (e) {
-  cartCanvas.style.display = cartCanvas.style.display === 'none' ? 'initial' : 'none';
-
-  runFrame();
-});
-
-const showCameraBorder = document.getElementById("showCameraBorder");
-showCameraBorder.addEventListener('click', function (e) {
-  debugGrid.printCameraBorder = !debugGrid.printCameraBorder;
-  runFrame();
-});
-
-const showTileCoord = document.getElementById("showTileCoord");
-showTileCoord.addEventListener('click', function (e) {
-  debugGrid.printCoordinates = !debugGrid.printCoordinates;
-  runFrame();
 });

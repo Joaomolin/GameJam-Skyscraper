@@ -9,55 +9,52 @@ export class DebugOptions {
 
 
   printDebugGrid(rx, ry, gridFirstTile, gridLastTile, floorX, floorY, canvas) {
-    // this.printGridLines(gridFirstTile, gridLastTile);
-    if (this.printCoordinates){
-        this.printGridCoordinates(gridFirstTile, gridLastTile);
+    if (this.printCoordinates) {
+      this.printGridCoordinates(gridFirstTile, gridLastTile);
     }
 
 
     this.strokeSelectedTile(floorX, floorY);
-    
-    this.printXAxisDividedLine(rx, ry, gridFirstTile, gridLastTile, floorX, floorY);
-    this.printYAxisDividedLine(rx, ry, gridFirstTile, gridLastTile, floorX, floorY);
 
-    // this.printYAxisLine(rx, ry, gridFirstTile, gridLastTile);
-    // this.printXAxisLine(rx, ry, gridFirstTile, gridLastTile);
+    // this.printXAxisDividedLine(rx, ry, gridFirstTile, gridLastTile, floorX, floorY);
+    // this.printYAxisDividedLine(rx, ry, gridFirstTile, gridLastTile, floorX, floorY);
 
-    if (this.printCameraBorder){
-      this.printBorder(canvas);
-    }
-    
+
   }
-  printBorder(canvas){
-      this.ctx.fillStyle = "111";
-      this.ctx.globalAlpha = 0.2;
-      this.ctx.fillRect(0, 0, canvas.width / 8, canvas.height);
-      this.ctx.fillRect(canvas.width - (canvas.width / 8), 0, canvas.width / 8, canvas.height);
-      this.ctx.fillRect(0, 0, canvas.width, canvas.height / 5);
-      this.ctx.fillRect(0, canvas.height - (canvas.height / 5), canvas.width, canvas.height / 5);
-      this.ctx.globalAlpha = 1;
+  printBorder(canvas) {
+    this.ctx.fillStyle = "111";
+    this.ctx.globalAlpha = 0.2;
+    this.ctx.fillRect(0, 0, canvas.width / 8, canvas.height);
+    this.ctx.fillRect(canvas.width - (canvas.width / 8), 0, canvas.width / 8, canvas.height);
+    this.ctx.fillRect(0, 0, canvas.width, canvas.height / 5);
+    this.ctx.fillRect(0, canvas.height - (canvas.height / 5), canvas.width, canvas.height / 5);
+    this.ctx.globalAlpha = 1;
   }
 
 
-  strokeSelectedTile(floorX, floorY){
-    
-    this.ctx.strokeStyle = "yellow";
+  strokeSelectedTile(floorX, floorY) {
+
+    this.ctx.strokeStyle = "black";
+    this.ctx.lineWidth = 3;
+    this.ctx.globalAlpha = 0.5;
     this.ctx.beginPath();
     this.ctx.moveTo(this.iso.IsoToScreenX(floorX, floorY), this.iso.IsoToScreenY(floorX, floorY));
     this.ctx.lineTo(
-    this.iso.IsoToScreenX(floorX + 1, floorY),
-    this.iso.IsoToScreenY(floorX + 1, floorY)
-  );
-  this.ctx.lineTo(
-    this.iso.IsoToScreenX(floorX + 1, floorY + 1),
-    this.iso.IsoToScreenY(floorX + 1, floorY + 1)
-  );
-  this.ctx.lineTo(
-    this.iso.IsoToScreenX(floorX, floorY + 1),
-    this.iso.IsoToScreenY(floorX, floorY + 1)
-  );
-  this.ctx.closePath();
-  this.ctx.stroke();
+      this.iso.IsoToScreenX(floorX + 1, floorY),
+      this.iso.IsoToScreenY(floorX + 1, floorY)
+    );
+    this.ctx.lineTo(
+      this.iso.IsoToScreenX(floorX + 1, floorY + 1),
+      this.iso.IsoToScreenY(floorX + 1, floorY + 1)
+    );
+    this.ctx.lineTo(
+      this.iso.IsoToScreenX(floorX, floorY + 1),
+      this.iso.IsoToScreenY(floorX, floorY + 1)
+    );
+    this.ctx.closePath();
+    this.ctx.stroke();
+    this.ctx.lineWidth = 1;
+    this.ctx.globalAlpha = 1; 
 
   }
   printGridLines(gridFirstTile, gridLastTile) {
@@ -99,7 +96,7 @@ export class DebugOptions {
     }
   }
 
-  printXAxisDividedLine(rx, ry, gridFirstTile, gridLastTile, floorX, floorY){
+  printXAxisDividedLine(rx, ry, gridFirstTile, gridLastTile, floorX, floorY) {
     //First X half line first
     this.ctx.strokeStyle = "blue";
     this.ctx.beginPath();
@@ -112,7 +109,7 @@ export class DebugOptions {
     this.ctx.lineTo(this.iso.IsoToScreenX(rx, gridLastTile), this.iso.IsoToScreenY(rx, gridLastTile));
     this.ctx.stroke();
   }
-  printYAxisDividedLine(rx, ry, gridFirstTile, gridLastTile, floorX, floorY){
+  printYAxisDividedLine(rx, ry, gridFirstTile, gridLastTile, floorX, floorY) {
     //First Y half line first
     this.ctx.strokeStyle = "red";
     this.ctx.beginPath();

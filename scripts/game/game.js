@@ -62,13 +62,13 @@ export class Game {
         arr.push(`Sec left: ${this.secondsLeft}`);
         
 
-        arr.push(`Printer: ${this.printer}`);
-        arr.push(`TotalPrinters: ${this.totalPrinters}`);
-        arr.push(`Phone: ${this.phone}`);
-        arr.push(`TotalPhones: ${this.totalPhones}`);
-        arr.push(`Worker: ${this.worker}`);
-        arr.push(`TotalWorkers: ${this.totalWorkers}`);
-        arr.push(`Deals: ${this.finishedDeals}`);
+        // arr.push(`Printer: ${this.printer}`);
+        // arr.push(`TotalPrinters: ${this.totalPrinters}`);
+        // arr.push(`Phone: ${this.phone}`);
+        // arr.push(`TotalPhones: ${this.totalPhones}`);
+        // arr.push(`Worker: ${this.worker}`);
+        // arr.push(`TotalWorkers: ${this.totalWorkers}`);
+        // arr.push(`Deals: ${this.finishedDeals}`);
 
     }
 }
