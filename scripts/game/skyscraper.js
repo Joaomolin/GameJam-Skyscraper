@@ -1,10 +1,54 @@
 import { Tile } from "../tile.js";
 import { Coordinates } from "../coordinates.js";
+import { Sprite } from "../sprite/sprite.js"
 import CubeSheet from "../../assets/mapSheet.json" assert {type: 'json'};
 import TilesInfo from "../../scripts/sprite/tiles.json" assert { type: "json" };
 export class Skyscraper {
-    constructor(map) {
+    constructor(map, game, hud, keyboard) {
         this.map = map;
+        this.game = game;
+        this.hud = hud;
+        this.keyboard = keyboard;
+
+        this.cloudSprites = [CubeSheet.CloudBig1, CubeSheet.CloudBig2, CubeSheet.CloudBig3, CubeSheet.CloudBig4, CubeSheet.CloudSmall1, CubeSheet.CloudSmall2, CubeSheet.CloudSmall3]
+        this.clouds = [];
+        this.cloudsPos = [];
+        this.startClouds();
+    }
+
+    startClouds(){
+        for(let i = 0; i < 25; i++){
+            this.clouds.push(new Sprite(this.cloudSprites[i % this.cloudSprites.length]));
+            this.cloudsPos.push(new Coordinates(Math.floor(Math.random() * this.hud.canvas.width), 40 +  Math.floor(Math.random() * this.hud.canvas.height)));
+        }
+
+        setInterval(() => this.moveClouds(), 1420);
+    }
+
+    moveClouds(){
+        for(let i = 0; i < this.cloudsPos.length; i++){
+            if (Math.random() > 0.8){
+                this.cloudsPos[i].x = this.cloudsPos[i].x + 8
+            } else if (Math.random() > 0.8){
+                this.cloudsPos[i].x = this.cloudsPos[i].x - 8;
+            }
+        }
+    }
+
+    drawClouds(){
+        const ctx = this.map.isoCtx;
+        for(let i = 0; i < this.clouds.length; i++){
+            const cloud = this.clouds[i];
+            ctx.drawImage(
+                cloud.img,
+                cloud.imgX,
+                cloud.imgY,
+                cloud.imgW,
+                cloud.imgH,
+                this.cloudsPos[i].x, this.cloudsPos[i].y,
+                cloud.imgW, cloud.imgH
+            );
+        }
     }
 
     upgradeTile() {
@@ -15,28 +59,17 @@ export class Skyscraper {
             return;
         }
 
-        let toSend;
-        const rand = Math.random().toFixed(1);
-
-        switch (rand) {
-            case '0.1':
-            case '0.2':
-            case '0.3':
-                toSend = CubeSheet.Printer; break;
-            case '0.4':
-            case '0.5':
-            case '0.6':
-                toSend = CubeSheet.Worker; break;
-            case '0.7':
-            case '0.8':
-            case '0.9':
-            default:
-                toSend = CubeSheet.Phone; break;
+        let toSend = this.hud.getSelectedBtnSprite();
+        
+        switch (toSend.color) {
+            case '#d38f7e': this.game.worker +=1; break;
+            case '#c8c59a': this.game.phone +=1; break;
+            case '#831113': this.game.printer +=1; break;
+            default: console.log(`Can't find match to ${toSend.color}`);
         }
 
         this.map.placed[y][x] = new Tile(new Coordinates(x, y), toSend);
 
-        this.updateFloor()
     }
 
     updateFloor(){
@@ -49,8 +82,11 @@ export class Skyscraper {
         }
 
        
+        if (this.game.finishedDeals >= 50){
+            this.game.finishedDeals -= 50;
+            this.goToNextFloor();
+        }
         
-        this.goToNextFloor();
     }
 
     goToNextFloor() {

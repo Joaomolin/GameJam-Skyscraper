@@ -10,6 +10,28 @@
         "ySize": 0,
         "src": "./assets/CubeSheet.png",
         "color": "#91db69"
+    },"Stopwatch": {
+        "sheetPosX": 576,
+        "sheetPosY": 448,
+        "sheetPosWidth": 64,
+        "sheetPosHeight": 64,
+        "xOffset": 0,
+        "yOffset": 0,
+        "xSize": 0,
+        "ySize": 0,
+        "src": "./assets/CubeSheet.png",
+        "color": "#c31517"
+    },"Document": {
+        "sheetPosX": 448,
+        "sheetPosY": 128,
+        "sheetPosWidth": 64,
+        "sheetPosHeight": 64,
+        "xOffset": 0,
+        "yOffset": 0,
+        "xSize": 0,
+        "ySize": 0,
+        "src": "./assets/CubeSheet.png",
+        "color": "#dfdcd4"
     }
 
     ,"Worker": {
@@ -115,5 +137,84 @@
         "ySize": 32,
         "src": "./assets/CubeSheet.png",
         "color": "#303030"
+    }
+
+    ,"CloudBig1": {
+        "sheetPosX": 384,
+        "sheetPosY": 512,
+        "sheetPosWidth": 128,
+        "sheetPosHeight": 64,
+        "xOffset": 0,
+        "yOffset": 0,
+        "xSize": 0,
+        "ySize": 0,
+        "src": "./assets/CubeSheet.png",
+        "color": "#91db69"
+    },"CloudBig2": {
+        "sheetPosX": 384 ,
+        "sheetPosY": 576,
+        "sheetPosWidth": 128,
+        "sheetPosHeight": 64,
+        "xOffset": 0,
+        "yOffset": 0,
+        "xSize": 0,
+        "ySize": 0,
+        "src": "./assets/CubeSheet.png",
+        "color": "#91db69"
+    },"CloudBig3": {
+        "sheetPosX": 512,
+        "sheetPosY": 512,
+        "sheetPosWidth": 128,
+        "sheetPosHeight": 64,
+        "xOffset": 0,
+        "yOffset": 0,
+        "xSize": 0,
+        "ySize": 0,
+        "src": "./assets/CubeSheet.png",
+        "color": "#91db69"
+    },"CloudBig4": {
+        "sheetPosX": 512,
+        "sheetPosY": 576,
+        "sheetPosWidth": 128,
+        "sheetPosHeight": 64,
+        "xOffset": 0,
+        "yOffset": 0,
+        "xSize": 0,
+        "ySize": 0,
+        "src": "./assets/CubeSheet.png",
+        "color": "#91db69"
+    },"CloudSmall1": {
+        "sheetPosX": 256,
+        "sheetPosY": 512,
+        "sheetPosWidth": 64,
+        "sheetPosHeight": 64,
+        "xOffset": 0,
+        "yOffset": 0,
+        "xSize": 0,
+        "ySize": 0,
+        "src": "./assets/CubeSheet.png",
+        "color": "#91db69"
+    },"CloudSmall2": {
+        "sheetPosX": 320,
+        "sheetPosY": 512,
+        "sheetPosWidth": 64,
+        "sheetPosHeight": 64,
+        "xOffset": 0,
+        "yOffset": 0,
+        "xSize": 0,
+        "ySize": 0,
+        "src": "./assets/CubeSheet.png",
+        "color": "#91db69"
+    },"CloudSmall3": {
+        "sheetPosX": 320,
+        "sheetPosY": 576,
+        "sheetPosWidth": 64,
+        "sheetPosHeight": 64,
+        "xOffset": 0,
+        "yOffset": 0,
+        "xSize": 0,
+        "ySize": 0,
+        "src": "./assets/CubeSheet.png",
+        "color": "#91db69"
     }
 }

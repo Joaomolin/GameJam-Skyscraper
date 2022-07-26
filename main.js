@@ -3,13 +3,13 @@ import { DebugOptions } from "./scripts/debugOptions.js";
 import { Coordinates } from "./scripts/coordinates.js";
 import { Map } from "./scripts/map.js";
 import { Player } from "./scripts/player.js";
-import { Sprite } from "./scripts/sprite/sprite.js";
 import { Tile } from "./scripts/tile.js";
 import IsoConfig from "./isometricConfig.json" assert { type: "json" };
 import SkeletonInfo from "./scripts/sprite/skeleton.json" assert {type: 'json'};
 import { Keyboard } from "./scripts/keyboard.js";
 import { Skyscraper } from "./scripts/game/skyscraper.js";
 import { Game } from "./scripts/game/game.js";
+import { Hud } from "./scripts/game/hud.js";
 
 var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");
@@ -27,23 +27,33 @@ class SelectedTile {
 }
 const selectedTile = new SelectedTile();
 const mouseGrid = new Coordinates();
-
 const mouse = new Coordinates(canvas.width / 2, canvas.height / 2);
+
 const keyboard = new Keyboard();
 const player = new Player(keyboard);
+
 const isometric = new Isometric(mouse, player);
-const game = new Game();
-const map = new Map(ctx, cartCtx, isometric, selectedTile, game);
 const debugGrid = new DebugOptions(ctx, isometric);
-const skyscraper = new Skyscraper(map);
+
+const game = new Game();
+const hud = new Hud(canvas, ctx, game, keyboard);
+const map = new Map(ctx, cartCtx, isometric, selectedTile, game);
+const skyscraper = new Skyscraper(map, game, hud, keyboard);
 
 //Cart
 function runFrame() {
-  map.printMap();
+  ctx.clearRect(0, 0, 10000, 10000);
+  skyscraper.drawClouds();
+  skyscraper.updateFloor();
+  map.draw();
   printMouseTile();
 
+
   updateInfo();
-  printInfo();
+  // printInfo();
+  hud.update();
+  hud.draw();
+
 
   if (runCanvas) {
     requestAnimationFrame(runFrame);
@@ -94,27 +104,26 @@ function updateInfo() {
   // infoArr.push(`Mouse on grid: ${selectedTile.coord.getInString()}`);
   // infoArr.push(`Player: ${player.pos.getInString()} / ${player.dir}`);
   // infoArr.push(`Cam: ${isometric.camera.getInString()}`);
-  infoArr.push(`Floors: ${game.floors}`);
-  infoArr.push(`Sec left: ${game.secondsLeft}`);
+  game.updateInfo(infoArr);
 }
 
 function printInfo() {
   if (!shouldPrintInfo) return;
-  ctx.font = "15px sans-serif";
+  ctx.font = "15px open-sans";
   ctx.textAlign = 'left';
   ctx.fillStyle = 'white';
   ctx.strokeStyle = 'black'
   ctx.globalAlpha = 0.8;
 
-  ctx.strokeRect(0, 0, 200, infoArr.length * 21);
-  ctx.fillRect(0, 0, 200, infoArr.length * 21);
+  ctx.strokeRect(0, 100, 200, infoArr.length * 21);
+  ctx.fillRect(0, 100, 200, infoArr.length * 21);
 
   //Text
   ctx.fillStyle = "black";
   ctx.globalAlpha = 1;
-  for (var i = 0; i < infoArr.length; i++){
-    if (infoArr[i]){
-      ctx.fillText(infoArr[i], 10, 18 + i * 20);
+  for (var i = 0; i < infoArr.length; i++) {
+    if (infoArr[i]) {
+      ctx.fillText(infoArr[i], 10, 120 + i * 20);
     }
 
   }
@@ -123,7 +132,7 @@ function printInfo() {
 runFrame();
 
 canvas.addEventListener('mousemove', function (e) {
-  if (selectedTile.coord.x === mouseGrid.x && selectedTile.coord.y === mouseGrid.y){
+  if (selectedTile.coord.x === mouseGrid.x && selectedTile.coord.y === mouseGrid.y) {
     skyscraper.upgradeTile();
   }
 });
@@ -138,11 +147,11 @@ document.addEventListener('keydown', function (e) {
 
 window.addEventListener('wheel', function (e) {
   if (e.deltaY < 0) {
-    map.floors++;
+    skyscraper.goToNextFloor();
   }
   if (e.deltaY > 0) {
-    if (map.floors > 1){
-      map.floors--;
+    if (game.floors > 1) {
+      game.floors--;
     }
   }
 });

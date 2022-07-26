@@ -1,5 +1,7 @@
 export class Keyboard {
     constructor(){
+        //Selected hud tile
+        this.selectedTile = 1;
 
         //Player
         this.isRunning = false;
@@ -13,6 +15,21 @@ export class Keyboard {
     }
 
     keyUp(key){
+        switch(key){
+            case '1':
+            case '2':
+            case '3':
+                this.selectedTile = key;
+                break;
+        }
+
+    }
+
+    keyDown(key){
+
+    }
+
+    oldKeyUp(key){
         switch(key){
             case 'w':
             case 'W':
@@ -41,7 +58,7 @@ export class Keyboard {
         }
     }
 
-    keyDown(key){
+    oldKeyDown(key){
         switch(key){
             case 'w':
             case 'W':

@@ -1,5 +1,6 @@
 export class Sprite {
     constructor(spriteInfo) {
+        this.info = spriteInfo;
         const image = new Image();
         image.src = spriteInfo.src;
         this.img = image;

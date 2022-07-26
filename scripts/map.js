@@ -121,8 +121,6 @@ export class Map {
 
   //Iso
   printIsoFloor() {
-    this.isoCtx.clearRect(0, 0, 10000, 10000);
-
     //Map floor
     for (let y = 0; y < this.floor.length; y++) {
       for (let x = 0; x < this.floor[y].length; x++) {
@@ -200,7 +198,7 @@ export class Map {
   }
 
   //
-  printMap() {
+  draw() {
   
     this.printIsoFloor();
     this.printCartFloor();
