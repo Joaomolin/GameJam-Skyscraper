@@ -12,6 +12,9 @@ export class Hud {
 
         this.hudBtns = [];
         this.selectedBtn = 1;
+        this.sideButtons = [
+            new Button("Pay $10", 660, 230, 125, 40),
+            new Button("Speed up", 660, 280, 125, 40)]
 
         this.skyscraperSprite = new Sprite(CubeSheet.SkyScraper);
         this.stopwatchSprite = new Sprite(CubeSheet.Stopwatch);
@@ -39,15 +42,20 @@ export class Hud {
 
     draw() {
         this.drawHud();
-        this.drawButtons();
+        this.drawBuyButtons();
+        this.drawSettingsButtons();
+
+    }
+    drawSettingsButtons() {
+        for (let i = 0; i < this.sideButtons.length; i++) {
+            this._drawBtn(this.sideButtons[i]);
+        }
 
     }
 
     drawHud() {
         this.ctx.font = "30px open-sans";
         this.ctx.fillStyle = "3d7b9a";
-
-
 
         this.drawDeals();
         this.drawPrinters();
@@ -59,9 +67,9 @@ export class Hud {
 
     }
 
-    drawWallet(){
+    drawWallet() {
         this.ctx.fillText(this.game.wallet, 720, 165);
-        const toDisplay = this.game.paidFloor ? `Paid ${this.game.getFloorCost()}`  : `Need ${this.game.getFloorCost()}`
+        const toDisplay = this.game.paidFloor ? `Paid ${this.game.getFloorCost()}` : `Need ${this.game.getFloorCost()}`
         this.ctx.fillText(toDisplay, 670, 210);
         this.ctx.drawImage(
             this.coinSprite.img,
@@ -75,7 +83,7 @@ export class Hud {
         );
     }
 
-    drawFloors(){
+    drawFloors() {
         this.ctx.fillText(this.game.floors, 720, 105);
         this.ctx.drawImage(
             this.skyscraperSprite.img,
@@ -158,7 +166,7 @@ export class Hud {
         );
     }
 
-    drawButtons() {
+    drawBuyButtons() {
         this.ctx.font = "25px open-sans";
         this.ctx.lineWidth = 5;
 
@@ -202,15 +210,15 @@ export class Hud {
 
     getSelectedBtnSprite() {
         for (let i = 0; i < this.hudBtns.length; i++) {
-            if (this.hudBtns[i].isSelected){
+            if (this.hudBtns[i].isSelected) {
                 return this.hudBtns[i].sprite.info;
             }
         }
 
     }
 
-    setSelectedKey(key){
-        switch(key){
+    setSelectedKey(key) {
+        switch (key) {
             case '1':
             case '2':
             case '3':
@@ -219,7 +227,7 @@ export class Hud {
         }
     }
 
-    setSelectedBtn(selectedKey){
+    setSelectedBtn(selectedKey) {
         for (let i = 0; i < this.hudBtns.length; i++) {
             this.hudBtns[i].isSelected = false;
         }
@@ -231,13 +239,49 @@ export class Hud {
         for (let i = 0; i < this.hudBtns.length; i++) {
             const pos = this.hudBtns[i].pos;
             const size = this.hudBtns[i].size;
-            if (mouse.x > pos.x && mouse.x < (pos.x + size.x)){
-                if (mouse.y > pos.y && mouse.y < (pos.y + size.y)){
+            if (mouse.x > pos.x && mouse.x < (pos.x + size.x)) {
+                if (mouse.y > pos.y && mouse.y < (pos.y + size.y)) {
                     this.setSelectedKey(`${i + 1}`);
                 }
             }
         }
 
+        if (this.sideButtons[0].interacted(mouse)) {
+            this.game.buyFloor();
+        }
+
+        if (this.sideButtons[1].interacted(mouse)) {
+            this.game.speedUp();
+        }
+
+
+    }
+
+    _drawBtn(btn) {
+        this.ctx.fillStyle = "#3d7b9a";
+        this.ctx.fillRect(btn.pos.x, btn.pos.y, btn.size.x, btn.size.y);
+        this.ctx.strokeStyle = "#1d536e";
+        this.ctx.strokeRect(btn.pos.x, btn.pos.y, btn.size.x, btn.size.y);
+        this.ctx.fillStyle = "black";
+        this.ctx.fillText(btn.text, btn.pos.x + 15, btn.pos.y + 27);
+    }
+}
+
+class Button {
+    constructor(text, x, y, width, height) {
+        this.text = text;
+        this.pos = new Coordinates(x, y);
+        this.size = new Coordinates(width, height);
+    }
+
+    interacted(mouse) {
+        if (mouse.x > this.pos.x && mouse.x < (this.pos.x + this.size.x)) {
+            if (mouse.y > this.pos.y && mouse.y < (this.pos.y + this.size.y)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
 

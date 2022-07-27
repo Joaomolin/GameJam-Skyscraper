@@ -17,28 +17,28 @@ export class Skyscraper {
         this.startClouds();
     }
 
-    startClouds(){
-        for(let i = 0; i < 25; i++){
+    startClouds() {
+        for (let i = 0; i < 25; i++) {
             this.clouds.push(new Sprite(this.cloudSprites[i % this.cloudSprites.length]));
-            this.cloudsPos.push(new Coordinates(Math.floor(Math.random() * this.hud.canvas.width), 40 +  Math.floor(Math.random() * this.hud.canvas.height)));
+            this.cloudsPos.push(new Coordinates(Math.floor(Math.random() * this.hud.canvas.width), 40 + Math.floor(Math.random() * this.hud.canvas.height)));
         }
 
         setInterval(() => this.moveClouds(), 1420);
     }
 
-    moveClouds(){
-        for(let i = 0; i < this.cloudsPos.length; i++){
-            if (Math.random() > 0.8){
+    moveClouds() {
+        for (let i = 0; i < this.cloudsPos.length; i++) {
+            if (Math.random() > 0.8) {
                 this.cloudsPos[i].x = this.cloudsPos[i].x + 8
-            } else if (Math.random() > 0.8){
+            } else if (Math.random() > 0.8) {
                 this.cloudsPos[i].x = this.cloudsPos[i].x - 8;
             }
         }
     }
 
-    drawClouds(){
+    drawClouds() {
         const ctx = this.map.isoCtx;
-        for(let i = 0; i < this.clouds.length; i++){
+        for (let i = 0; i < this.clouds.length; i++) {
             const cloud = this.clouds[i];
             ctx.drawImage(
                 cloud.img,
@@ -60,18 +60,18 @@ export class Skyscraper {
             return;
         }
 
-        if (this.game.wallet >= this.game.getItemCost()){
+        if (this.game.wallet >= this.game.getItemCost()) {
             this.game.wallet -= this.game.getItemCost();
         } else {
             return;
         }
 
         let toSend = this.hud.getSelectedBtnSprite();
-        
+
         switch (toSend.color) {
-            case '#d38f7e': this.game.worker +=1; break;
-            case '#c8c59a': this.game.phone +=1; break;
-            case '#831113': this.game.printer +=1; break;
+            case '#d38f7e': this.game.worker += 1; break;
+            case '#c8c59a': this.game.phone += 1; break;
+            case '#831113': this.game.printer += 1; break;
             default: console.log(`Can't find match to ${toSend.color}`);
         }
 
@@ -79,17 +79,10 @@ export class Skyscraper {
 
     }
 
-    updateFloor(){
-        if (!this.game.paidFloor){
-            const cost = this.map.game.getFloorCost();
-            if (this.game.wallet >= cost){
-                this.game.wallet -= cost;
-                this.game.paidFloor = true;
-            }
-        }
+    updateFloor() {
 
-        if (this.game.secondsLeft == 0){
-            if (this.game.paidFloor){
+        if (this.game.secondsLeft == 0) {
+            if (this.game.paidFloor) {
                 this.game.paidFloor = false;
                 this.goToNextFloor();
             } else {
@@ -106,11 +99,12 @@ export class Skyscraper {
         }
 
         this.game.tickTime = this.game.normalTick / 5;
-        
+
     }
 
     goToNextFloor() {
         this.map.game.nextFloor();
+        this.hud.sideButtons[0].text = "Pay $" + this.map.game.getFloorCost();
 
         for (let y = 0; y < this.map.placed.length; y++) {
             for (let x = 0; x < this.map.placed[y].length; x++) {
@@ -120,7 +114,7 @@ export class Skyscraper {
 
     }
 
-    floorIsFull(){
+    floorIsFull() {
         for (let y = 7; y < 11; y++) {
             for (let x = 7; x < 11; x++) {
                 if (this.map.placed[y][x].color == '#9b9b9b') {
@@ -136,7 +130,7 @@ export class Skyscraper {
         for (let i = 0; i < this.game.floatingMessages.length; i++) {
             this.game.floatingMessages[i].update();
             this.game.floatingMessages[i].draw();
-    
+
             if (this.game.floatingMessages[i].lifespan >= 50) {
                 this.game.floatingMessages.splice(i, 1);
                 i--;
@@ -144,5 +138,5 @@ export class Skyscraper {
         }
     }
 
-    
+
 }

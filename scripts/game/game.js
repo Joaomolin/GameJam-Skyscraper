@@ -6,7 +6,7 @@ export class Game {
         this.score = 0;
         this.playing = false;
         this.floors = 2;
-        this.paidFloor = true;
+        this.paidFloor = false;
         this.floatingMessages = [];
 
         //Timer
@@ -42,11 +42,18 @@ export class Game {
         this.tick();
     }
 
+    speedUp(){
+        this.normalTick = this.normalTick === 1000 ? 250 : 1000;
+        this.tickTime = this.normalTick;
+
+        console.log(this.normalTick)
+    }
+
     nextFloor() {
         if (this.floors < 10) {
-            this.floorPrice = this.floorPrice * 1.7;
+            this.floorPrice = this.floorPrice * 1.5;
         } else if (this.floors < 20) {
-            this.floorPrice = this.floorPrice * 1.40;
+            this.floorPrice = this.floorPrice * 1.35;
         } else {
             this.floorPrice = this.floorPrice * 1.25;
         }
@@ -54,6 +61,16 @@ export class Game {
         this.tickTime = this.normalTick;
         this.floors++;
         this.restartTimer();
+    }
+
+    buyFloor() {
+        if (!this.paidFloor) {
+            const cost = this.getFloorCost();
+            if (this.wallet >= cost) {
+                this.wallet -= cost;
+                this.paidFloor = true;
+            }
+        }
     }
 
     tick() {
@@ -86,7 +103,7 @@ export class Game {
                 popUpFinishedDeals++;
             }
         }
-        if (popUpFinishedWorks >= popUpFinishedDeals){
+        if (popUpFinishedWorks >= popUpFinishedDeals) {
             if (popUpFinishedWorks >= 1) {
                 this.floatingMessages.push(new FloatingMessage(this.ctx, 525, 50, '+' + popUpFinishedWorks, 30, 'black'));
                 this.floatingMessages.push(new FloatingMessage(this.ctx, 620, 165, '+' + popUpFinishedWorks, 30, 'black'));
@@ -97,7 +114,7 @@ export class Game {
                 this.floatingMessages.push(new FloatingMessage(this.ctx, 620, 165, '+' + popUpFinishedWorks, 30, 'black'));
             }
         }
-        
+
         // this.floatingMessages.push(new FloatingMessage(this.ctx, 520, 50, '-' + popUpFinishedWorks, 30, 'black'));
         this.timer = setTimeout(() => this.tick(), this.tickTime);
     }
