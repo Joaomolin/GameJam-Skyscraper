@@ -21,6 +21,17 @@
         "ySize": 0,
         "src": "./assets/CubeSheet.png",
         "color": "#c31517"
+    },"Coin": {
+        "sheetPosX": 512,
+        "sheetPosY": 448,
+        "sheetPosWidth": 64,
+        "sheetPosHeight": 64,
+        "xOffset": 0,
+        "yOffset": 0,
+        "xSize": 0,
+        "ySize": 0,
+        "src": "./assets/CubeSheet.png",
+        "color": "#c31517"
     },"Document": {
         "sheetPosX": 448,
         "sheetPosY": 128,

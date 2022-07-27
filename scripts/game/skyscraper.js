@@ -59,6 +59,12 @@ export class Skyscraper {
             return;
         }
 
+        if (this.game.wallet >= 10){
+            this.game.wallet -= 10;
+        } else {
+            return;
+        }
+
         let toSend = this.hud.getSelectedBtnSprite();
         
         switch (toSend.color) {
@@ -73,25 +79,41 @@ export class Skyscraper {
     }
 
     updateFloor(){
-        for (let y = 5; y < 11; y++) {
-            for (let x = 5; x < 11; x++) {
+        if (!this.game.paidFloor){
+            const cost = this.map.game.getFloorCost();
+            if (this.game.wallet >= cost){
+                this.game.wallet -= cost;
+                this.game.paidFloor = true;
+            }
+        }
+
+        if (this.game.secondsLeft == 0){
+            if (this.game.paidFloor){
+                this.game.paidFloor = false;
+                this.goToNextFloor();
+            } else {
+                console.log("Game Over");
+            }
+        }
+
+        for (let y = 7; y < 11; y++) {
+            for (let x = 7; x < 11; x++) {
                 if (this.map.placed[y][x].color == '#9b9b9b') {
                     return true;
                 }
             }
         }
 
-       
-        if (this.game.finishedDeals >= 50){
-            this.game.finishedDeals -= 50;
-            this.goToNextFloor();
+        if (this.secondsLeft < 10){
+            this.game.tickTime = this.game.normalTick / 5;
+        } else {
+            this.game.tickTime = this.game.normalTick / 5;
         }
         
     }
 
     goToNextFloor() {
-        this.map.game.resetTimer();
-        this.map.game.floors++;
+        this.map.game.nextFloor();
 
         for (let y = 0; y < this.map.placed.length; y++) {
             for (let x = 0; x < this.map.placed[y].length; x++) {
@@ -100,4 +122,18 @@ export class Skyscraper {
         }
 
     }
+
+    floorIsFull(){
+        for (let y = 7; y < 11; y++) {
+            for (let x = 7; x < 11; x++) {
+                if (this.map.placed[y][x].color == '#9b9b9b') {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
+    
 }

@@ -13,7 +13,9 @@ export class Hud {
         this.hudBtns = [];
         this.selectedBtn = 1;
 
+        this.skyscraperSprite = new Sprite(CubeSheet.SkyScraper);
         this.stopwatchSprite = new Sprite(CubeSheet.Stopwatch);
+        this.coinSprite = new Sprite(CubeSheet.Coin);
         this.documentSprite = new Sprite(CubeSheet.Document);
         this.printerSprite = new Sprite(CubeSheet.Printer);
         this.workerSprite = new Sprite(CubeSheet.Worker);
@@ -42,36 +44,66 @@ export class Hud {
     }
 
     drawHud() {
-        this.ctx.font = "35px open-sans";
+        this.ctx.font = "30px open-sans";
         this.ctx.fillStyle = "3d7b9a";
 
 
 
-        this.drawScore();
+        this.drawDeals();
         this.drawPrinters();
         this.drawPhones();
         this.drawWorkers();
+        this.drawWallet();
         this.drawStopwatch();
+        this.drawFloors();
 
+    }
+
+    drawWallet(){
+        this.ctx.fillText(this.game.wallet, 720, 165);
+        this.ctx.drawImage(
+            this.coinSprite.img,
+            this.coinSprite.imgX,
+            this.coinSprite.imgY,
+            this.coinSprite.imgW,
+            this.coinSprite.imgH,
+            650,
+            125,
+            64, 64
+        );
+    }
+
+    drawFloors(){
+        this.ctx.fillText(this.game.floors, 720, 105);
+        this.ctx.drawImage(
+            this.skyscraperSprite.img,
+            this.skyscraperSprite.imgX,
+            this.skyscraperSprite.imgY,
+            this.skyscraperSprite.imgW,
+            this.skyscraperSprite.imgH,
+            660,
+            70,
+            48, 48
+        );
     }
 
     drawWorkers() {
         this.ctx.fillText(this.game.totalWorkers, 336, 50);
-        this.ctx.fillText(`+${this.game.worker}`, 336, 80);
+        this.ctx.fillText(`+${this.game.worker} (${this.game.workerDemand})`, 336, 80);
         this.ctx.drawImage(
             this.workerSprite.img,
             this.workerSprite.imgX,
             this.workerSprite.imgY,
             this.workerSprite.imgW,
             this.workerSprite.imgH,
-            256, -28,
+            256, -22,
             96, 96
         );
     }
 
     drawPhones() {
         this.ctx.fillText(this.game.totalPhones, 464, 50);
-        this.ctx.fillText(`+${this.game.phone}`, 464, 80);
+        this.ctx.fillText(`+${this.game.phone} (${this.game.phoneDemand})`, 464, 80);
         this.ctx.drawImage(
             this.phoneSprite.img,
             this.phoneSprite.imgX,
@@ -85,7 +117,7 @@ export class Hud {
 
     drawPrinters() {
         this.ctx.fillText(`${this.game.totalPrinters}`, 208, 50);
-        this.ctx.fillText(`+${this.game.printer}`, 208, 80);
+        this.ctx.fillText(`+${this.game.printer} (${this.game.printerDemand})`, 208, 80);
         this.ctx.drawImage(
             this.printerSprite.img,
             this.printerSprite.imgX,
@@ -97,7 +129,7 @@ export class Hud {
         );
     }
 
-    drawScore() {
+    drawDeals() {
         this.ctx.fillText(`${this.game.finishedDeals}`, 80, 50);
         this.ctx.drawImage(
             this.documentSprite.img,
@@ -119,7 +151,7 @@ export class Hud {
             this.stopwatchSprite.imgW,
             this.stopwatchSprite.imgH,
             640,
-            -15,
+            -10,
             96, 96
         );
     }
