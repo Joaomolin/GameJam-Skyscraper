@@ -35,7 +35,7 @@ const player = new Player(keyboard);
 const isometric = new Isometric(mouse, player);
 const debugGrid = new DebugOptions(ctx, isometric);
 
-const game = new Game();
+const game = new Game(ctx);
 const hud = new Hud(canvas, ctx, game, keyboard);
 const map = new Map(ctx, cartCtx, isometric, selectedTile, game);
 const skyscraper = new Skyscraper(map, game, hud, keyboard);
@@ -53,6 +53,7 @@ function runFrame() {
   updateInfo();
   // printInfo();
   hud.draw();
+  skyscraper.handleFloatingMessages();
 
 
   if (runCanvas) {

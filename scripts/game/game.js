@@ -1,16 +1,21 @@
+import { FloatingMessage } from "./floatingMessage.js";
+
 export class Game {
-    constructor() {
+    constructor(ctx) {
+        this.ctx = ctx;
         this.score = 0;
         this.playing = false;
         this.floors = 2;
         this.paidFloor = true;
+        this.floatingMessages = [];
 
         //Timer
+        this.normalTick = 1000;
+        this.tickTime = this.normalTick;
         this.secondsLeft = 60;
         this.timer = undefined;
         this.restartTimer();
-        this.normalTick = 1000;
-        this.tickTime = this.normalTick;
+
 
         //
         this.printer = 5;
@@ -23,7 +28,7 @@ export class Game {
         this.totalWorkers = 0;
         this.workerDemand = 5;
         //
-        this.wallet = 10;
+        this.wallet = 25;
         this.finishedDeals = 0;
         this.floorPrice = 10;
 
@@ -38,12 +43,12 @@ export class Game {
     }
 
     nextFloor() {
-        if (this.floors < 10){
-            this.floorPrice = this.floorPrice * 1.35;
-        } else if (this.floors < 20){
-            this.floorPrice = this.floorPrice * 1.20;
+        if (this.floors < 10) {
+            this.floorPrice = this.floorPrice * 1.7;
+        } else if (this.floors < 20) {
+            this.floorPrice = this.floorPrice * 1.40;
         } else {
-            this.floorPrice = this.floorPrice * 1.15;
+            this.floorPrice = this.floorPrice * 1.25;
         }
 
         this.tickTime = this.normalTick;
@@ -52,7 +57,7 @@ export class Game {
     }
 
     tick() {
-        if (this.secondsLeft > 1) {
+        if (this.secondsLeft > 0) {
             this.secondsLeft--;
         } else {
             this.secondsLeft = 0;
@@ -63,21 +68,37 @@ export class Game {
         this.totalPhones += this.phone;
         this.totalWorkers += this.worker;
 
+        let popUpFinishedWorks = 0;
+        let popUpFinishedDeals = 0;
         this.updateDemand();
         for (let i = 0; i < this.worker; i++) {
             if (Math.random() > 0.5) {
                 if (this.finishedDeals > 0) {
                     this.finishedDeals--;
                     this.wallet++;
+                    popUpFinishedWorks++;
                     continue;
                 }
             }
             if (this.hasResources()) {
                 this.payResources();
                 this.finishedDeals += 1;
+                popUpFinishedDeals++;
             }
         }
-
+        if (popUpFinishedWorks >= popUpFinishedDeals){
+            if (popUpFinishedWorks >= 1) {
+                this.floatingMessages.push(new FloatingMessage(this.ctx, 525, 50, '+' + popUpFinishedWorks, 30, 'black'));
+                this.floatingMessages.push(new FloatingMessage(this.ctx, 620, 165, '+' + popUpFinishedWorks, 30, 'black'));
+            }
+        } else {
+            if (popUpFinishedWorks >= 1) {
+                this.floatingMessages.push(new FloatingMessage(this.ctx, 525, 50, '+' + (popUpFinishedDeals - popUpFinishedWorks), 30, 'black'));
+                this.floatingMessages.push(new FloatingMessage(this.ctx, 620, 165, '+' + popUpFinishedWorks, 30, 'black'));
+            }
+        }
+        
+        // this.floatingMessages.push(new FloatingMessage(this.ctx, 520, 50, '-' + popUpFinishedWorks, 30, 'black'));
         this.timer = setTimeout(() => this.tick(), this.tickTime);
     }
 
@@ -133,6 +154,10 @@ export class Game {
 
     getFloorCost() {
         return Math.floor(this.floorPrice);
+    }
+
+    getItemCost() {
+        return 8 + Math.floor(this.floors * 0, 5);
     }
 
     _randomIntFromInterval(min, max) { // min and max included 

@@ -61,8 +61,8 @@ export class Hud {
 
     drawWallet(){
         this.ctx.fillText(this.game.wallet, 720, 165);
-        const toDisplay = this.game.paidFloor ? 'Floor paid' : `Need: ${this.game.getFloorCost()}`
-        this.ctx.fillText(toDisplay, 650, 210);
+        const toDisplay = this.game.paidFloor ? `Paid ${this.game.getFloorCost()}`  : `Need ${this.game.getFloorCost()}`
+        this.ctx.fillText(toDisplay, 670, 210);
         this.ctx.drawImage(
             this.coinSprite.img,
             this.coinSprite.imgX,
@@ -90,56 +90,56 @@ export class Hud {
     }
 
     drawWorkers() {
-        this.ctx.fillText(this.game.totalWorkers, 336, 50);
-        this.ctx.fillText(`+${this.game.worker} (${this.game.workerDemand})`, 336, 80);
+        this.ctx.fillText(this.game.totalWorkers, 208, 50);
+        this.ctx.fillText(`+${this.game.worker} (${this.game.workerDemand})`, 208, 80);
         this.ctx.drawImage(
             this.workerSprite.img,
             this.workerSprite.imgX,
             this.workerSprite.imgY,
             this.workerSprite.imgW,
             this.workerSprite.imgH,
-            256, -22,
+            118, -22,
             96, 96
         );
     }
 
     drawPhones() {
-        this.ctx.fillText(this.game.totalPhones, 464, 50);
-        this.ctx.fillText(`+${this.game.phone} (${this.game.phoneDemand})`, 464, 80);
+        this.ctx.fillText(this.game.totalPhones, 336, 50);
+        this.ctx.fillText(`+${this.game.phone} (${this.game.phoneDemand})`, 336, 80);
         this.ctx.drawImage(
             this.phoneSprite.img,
             this.phoneSprite.imgX,
             this.phoneSprite.imgY,
             this.phoneSprite.imgW,
             this.phoneSprite.imgH,
-            384, -28,
+            256, -28,
             96, 96
         );
     }
 
     drawPrinters() {
-        this.ctx.fillText(`${this.game.totalPrinters}`, 208, 50);
-        this.ctx.fillText(`+${this.game.printer} (${this.game.printerDemand})`, 208, 80);
+        this.ctx.fillText(`${this.game.totalPrinters}`, 80, 50);
+        this.ctx.fillText(`+${this.game.printer} (${this.game.printerDemand})`, 80, 80);
         this.ctx.drawImage(
             this.printerSprite.img,
             this.printerSprite.imgX,
             this.printerSprite.imgY,
             this.printerSprite.imgW,
             this.printerSprite.imgH,
-            118, -28,
+            -10, -28,
             96, 96
         );
     }
 
     drawDeals() {
-        this.ctx.fillText(`${this.game.finishedDeals}`, 80, 50);
+        this.ctx.fillText(`${this.game.finishedDeals}`, 494, 50);
         this.ctx.drawImage(
             this.documentSprite.img,
             this.documentSprite.imgX,
             this.documentSprite.imgY,
             this.documentSprite.imgW,
             this.documentSprite.imgH,
-            0, -16,
+            414, -16,
             96, 96
         );
     }
@@ -164,23 +164,37 @@ export class Hud {
 
         for (let i = 0; i < this.hudBtns.length; i++) {
             const item = this.hudBtns[i];
+            //
             this.ctx.fillStyle = "#3d7b9a";
             this.ctx.fillRect(item.pos.x, item.pos.y, item.size.x, item.size.y);
             this.ctx.strokeStyle = item.isSelected ? "#fff838" : "#1d536e";
             this.ctx.strokeRect(item.pos.x, item.pos.y, item.size.x, item.size.y);
+            // Main img
             this.ctx.drawImage(
                 item.sprite.img,
                 item.sprite.imgX,
                 item.sprite.imgY,
                 item.sprite.imgW,
                 item.sprite.imgH,
-                item.pos.x + 25,
-                item.pos.y - 50,
+                item.pos.x + 15,
+                item.pos.y - 55,
                 200, 200
+            );
+            //Price img
+            this.ctx.drawImage(
+                this.coinSprite.img,
+                this.coinSprite.imgX,
+                this.coinSprite.imgY,
+                this.coinSprite.imgW,
+                this.coinSprite.imgH,
+                item.pos.x + item.size.x - 70,
+                item.pos.y + 5,
+                32, 32
             );
 
             this.ctx.fillStyle = "Black";
             this.ctx.fillText(item.key, item.pos.x + 10, item.pos.y + 30);
+            this.ctx.fillText(this.game.getItemCost(), item.pos.x + item.size.x - 35, item.pos.y + 30);
         }
 
         this.ctx.lineWidth = 1;

@@ -10,6 +10,7 @@ export class Skyscraper {
         this.hud = hud;
         this.keyboard = keyboard;
 
+
         this.cloudSprites = [CubeSheet.CloudBig1, CubeSheet.CloudBig2, CubeSheet.CloudBig3, CubeSheet.CloudBig4, CubeSheet.CloudSmall1, CubeSheet.CloudSmall2, CubeSheet.CloudSmall3]
         this.clouds = [];
         this.cloudsPos = [];
@@ -59,8 +60,8 @@ export class Skyscraper {
             return;
         }
 
-        if (this.game.wallet >= 10){
-            this.game.wallet -= 10;
+        if (this.game.wallet >= this.game.getItemCost()){
+            this.game.wallet -= this.game.getItemCost();
         } else {
             return;
         }
@@ -129,6 +130,18 @@ export class Skyscraper {
         }
 
         return true;
+    }
+
+    handleFloatingMessages() {
+        for (let i = 0; i < this.game.floatingMessages.length; i++) {
+            this.game.floatingMessages[i].update();
+            this.game.floatingMessages[i].draw();
+    
+            if (this.game.floatingMessages[i].lifespan >= 50) {
+                this.game.floatingMessages.splice(i, 1);
+                i--;
+            }
+        }
     }
 
     
