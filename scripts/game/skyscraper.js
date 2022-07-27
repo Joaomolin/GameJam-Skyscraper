@@ -104,11 +104,7 @@ export class Skyscraper {
             }
         }
 
-        if (this.secondsLeft < 10){
-            this.game.tickTime = this.game.normalTick / 5;
-        } else {
-            this.game.tickTime = this.game.normalTick / 5;
-        }
+        this.game.tickTime = this.game.normalTick / 5;
         
     }
 

@@ -51,7 +51,7 @@ function runFrame() {
 
 
   updateInfo();
-  printInfo();
+  // printInfo();
   hud.draw();
 
 
@@ -131,7 +131,7 @@ function printInfo() {
 
 runFrame();
 
-canvas.addEventListener('mousemove', function (e) {
+canvas.addEventListener('click', function (e) {
   if (selectedTile.coord.x === mouseGrid.x && selectedTile.coord.y === mouseGrid.y) {
     skyscraper.upgradeTile();
   } else {
@@ -148,13 +148,13 @@ document.addEventListener('keydown', function (e) {
   // keyboard.keyDown(e.key);
 });
 
-window.addEventListener('wheel', function (e) {
-  if (e.deltaY < 0) {
-    skyscraper.goToNextFloor();
-  }
-  if (e.deltaY > 0) {
-    if (game.floors > 1) {
-      game.floors--;
-    }
-  }
-});
+// window.addEventListener('wheel', function (e) {
+//   if (e.deltaY < 0) {
+//     skyscraper.goToNextFloor();
+//   }
+//   if (e.deltaY > 0) {
+//     if (game.floors > 1) {
+//       game.floors--;
+//     }
+//   }
+// });

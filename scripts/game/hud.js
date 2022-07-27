@@ -61,6 +61,8 @@ export class Hud {
 
     drawWallet(){
         this.ctx.fillText(this.game.wallet, 720, 165);
+        const toDisplay = this.game.paidFloor ? 'Floor paid' : `Need: ${this.game.getFloorCost()}`
+        this.ctx.fillText(toDisplay, 650, 210);
         this.ctx.drawImage(
             this.coinSprite.img,
             this.coinSprite.imgX,

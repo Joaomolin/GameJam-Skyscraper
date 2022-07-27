@@ -2,30 +2,30 @@ export class Game {
     constructor() {
         this.score = 0;
         this.playing = false;
-        this.floors = 6;
+        this.floors = 2;
         this.paidFloor = true;
 
         //Timer
         this.secondsLeft = 60;
         this.timer = undefined;
         this.restartTimer();
-        this.normalTick = 300;
+        this.normalTick = 1000;
         this.tickTime = this.normalTick;
 
         //
-        this.printer = 20;
+        this.printer = 5;
         this.totalPrinters = 0;
         this.printerDemand = 5;
-        this.phone = 20;
+        this.phone = 5;
         this.totalPhones = 0;
         this.phoneDemand = 5;
-        this.worker = 10;
+        this.worker = 5;
         this.totalWorkers = 0;
         this.workerDemand = 5;
         //
         this.wallet = 10;
         this.finishedDeals = 0;
-        this.floorPrice = 64;
+        this.floorPrice = 10;
 
     }
 
