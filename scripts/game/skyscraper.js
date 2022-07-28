@@ -64,8 +64,7 @@ export class Skyscraper {
         if (this.game.wallet >= this.game.getItemCost()) {
             this.game.wallet -= this.game.getItemCost();
         } else {
-            console.log(this.map.iso.mouse)
-            this.game.floatingMessages.push(new FloatingMessage(this.game.ctx, this.map.iso.mouse.x + 5, this.map.iso.mouse.y - 5, "Out of coins!", 30, 'black'));
+            this.game.floatingMessages.push(new FloatingMessage(this.game.ctx, this.map.iso.mouse.x + 5, this.map.iso.mouse.y - 5, "Out of coins!", 20, 'black'));
             return;
         }
 

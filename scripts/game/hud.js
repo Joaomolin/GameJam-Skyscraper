@@ -17,6 +17,7 @@ export class Hud {
         this.sideButtons = [
             new Button("Pay $10", 650, 230, 140, 40),
             new Button("Speed up", 650, 280, 140, 40),
+            new Button("Play/Pause", 650, 330, 140, 40),
             new Button("", 8, 100, 80, 270)]
 
         this.skyscraperSprite = new Sprite(CubeSheet.SkyScraper);
@@ -44,6 +45,7 @@ export class Hud {
     }
 
     draw() {
+        this.ctx.fillStyle = "black";
         this.drawHud();
         this.drawBuyButtons();
         this.drawSideButtons();
@@ -182,34 +184,34 @@ export class Hud {
 
     drawWorkers() {
         this.ctx.font = bigFont;
-        this.ctx.fillText(this.game.totalWorkers, 210, 50);
+        this.ctx.fillText(this.game.totalWorkers, 220, 50);
 
         this.ctx.font = smallFont;
-        this.ctx.fillText(`+${this.game.worker}/s`, 220, 70);
+        this.ctx.fillText(`+${this.game.worker}/s`, 230, 70);
         this.ctx.drawImage(
             this.workerSprite.img,
             this.workerSprite.imgX,
             this.workerSprite.imgY,
             this.workerSprite.imgW,
             this.workerSprite.imgH,
-            118, -22,
+            150, -22,
             96, 96
         );
     }
 
     drawPhones() {
         this.ctx.font = bigFont;
-        this.ctx.fillText(this.game.totalPhones, 335, 50);
+        this.ctx.fillText(this.game.totalPhones, 350, 50);
 
         this.ctx.font = smallFont;
-        this.ctx.fillText(`+${this.game.phone}/s`, 345, 70);
+        this.ctx.fillText(`+${this.game.phone}/s`, 360, 70);
         this.ctx.drawImage(
             this.phoneSprite.img,
             this.phoneSprite.imgX,
             this.phoneSprite.imgY,
             this.phoneSprite.imgW,
             this.phoneSprite.imgH,
-            256, -28,
+            280, -28,
             96, 96
         );
     }
@@ -233,14 +235,14 @@ export class Hud {
 
     drawDeals() {
         this.ctx.font = bigFont;
-        this.ctx.fillText(`${this.game.finishedDeals}`, 480, 45);
+        this.ctx.fillText(`${this.game.finishedDeals}`, 500, 45);
         this.ctx.drawImage(
             this.documentSprite.img,
             this.documentSprite.imgX,
             this.documentSprite.imgY,
             this.documentSprite.imgW,
             this.documentSprite.imgH,
-            420, 0,
+            450, 0,
             64, 64
         );
 
@@ -342,12 +344,21 @@ export class Hud {
             }
         }
 
-        if (this.sideButtons[0].interacted(mouse)) {
+        let idx = 0;
+        if (this.sideButtons[idx++].interacted(mouse)) {
             this.game.buyFloor();
         }
 
-        if (this.sideButtons[1].interacted(mouse)) {
+        if (this.sideButtons[idx++].interacted(mouse)) {
             this.game.speedUp();
+        }
+
+        if (this.sideButtons[idx++].interacted(mouse)) {
+            if (this.game.isPlaying){
+                this.game.isPlaying = false;
+            } else {
+                this.game.isPlaying = true;
+            }
         }
 
 
@@ -359,7 +370,7 @@ export class Hud {
         this.ctx.strokeStyle = "#1d536e";
         this.ctx.strokeRect(btn.pos.x, btn.pos.y, btn.size.x, btn.size.y);
         this.ctx.fillStyle = "black";
-        this.ctx.fillText(btn.text, btn.pos.x + 10, btn.pos.y + 27);
+        this.ctx.fillText(btn.text, btn.pos.x + 10, btn.pos.y + 30);
     }
 }
 

@@ -4,9 +4,9 @@ export class Game {
     constructor(ctx) {
         this.ctx = ctx;
         this.score = 0;
-        this.playing = true;
+        this.isPlaying = true;
         this.floors = 2;
-        this.paidFloor = false;
+        this.paidFloor = true;
         this.floatingMessages = [];
         this.dragMouse = false;
 
@@ -37,26 +37,28 @@ export class Game {
 
     restartTimer() {
         this.secondsLeft = 61;
-        if (this.timer) {
-            clearTimeout(this.timer);
-        }
+        this.resetTimer();
         this.tick();
     }
 
-    speedUp(){
+    resetTimer() {
+        if (this.timer) {
+            clearTimeout(this.timer);
+        }
+    }
+
+    speedUp() {
         this.normalTick = this.normalTick === 1000 ? 250 : 1000;
         this.tickTime = this.normalTick;
-
-        console.log(this.normalTick)
     }
 
     nextFloor() {
         if (this.floors < 10) {
-            this.floorPrice = this.floorPrice * 1.4;
+            this.floorPrice = this.floorPrice * 1.35;
         } else if (this.floors < 20) {
-            this.floorPrice = this.floorPrice * 1.3;
+            this.floorPrice = this.floorPrice * 1.25;
         } else {
-            this.floorPrice = this.floorPrice * 1.15;
+            this.floorPrice = this.floorPrice * 1.1;
         }
 
         this.tickTime = this.normalTick;
@@ -65,7 +67,7 @@ export class Game {
     }
 
     buyFloor() {
-        if (!this.playing) return;
+        if (!this.isPlaying) return;
 
         if (!this.paidFloor) {
             const cost = this.getFloorCost();
@@ -77,7 +79,10 @@ export class Game {
     }
 
     tick() {
-        if (!this.playing) return;
+        if (!this.isPlaying) {
+            this.startTimer();  
+            return;
+        }
 
         if (this.secondsLeft > 0) {
             this.secondsLeft--;
@@ -94,13 +99,11 @@ export class Game {
         let popUpFinishedDeals = 0;
         this.updateDemand();
         for (let i = 0; i < this.worker; i++) {
-            if (Math.random() > 0.5) {
-                if (this.finishedDeals > 0) {
-                    this.finishedDeals--;
-                    this.wallet++;
-                    popUpFinishedWorks++;
-                    continue;
-                }
+            if (this.finishedDeals > 0) {
+                this.finishedDeals--;
+                this.wallet++;
+                popUpFinishedWorks++;
+                continue;
             }
             if (this.hasResources()) {
                 this.payResources();
@@ -110,20 +113,32 @@ export class Game {
         }
         if (popUpFinishedWorks >= popUpFinishedDeals) {
             if (popUpFinishedWorks >= 1) {
-                this.floatingMessages.push(new FloatingMessage(this.ctx, 525, 50, '+' + popUpFinishedWorks, 30, 'black'));
-                this.floatingMessages.push(new FloatingMessage(this.ctx, 620, 165, '+' + popUpFinishedWorks, 30, 'black'));
+                this.floatingMessages.push(new FloatingMessage(this.ctx, 525, 50, '+' + popUpFinishedWorks, 20, 'black'));
+                this.floatingMessages.push(new FloatingMessage(this.ctx, 620, 165, '+' + popUpFinishedWorks, 20, 'black'));
             }
         } else {
             if (popUpFinishedWorks >= 1) {
-                this.floatingMessages.push(new FloatingMessage(this.ctx, 525, 50, '+' + (popUpFinishedDeals - popUpFinishedWorks), 30, 'black'));
-                this.floatingMessages.push(new FloatingMessage(this.ctx, 620, 165, '+' + popUpFinishedWorks, 30, 'black'));
+                this.floatingMessages.push(new FloatingMessage(this.ctx, 525, 50, '+' + (popUpFinishedDeals - popUpFinishedWorks), 20, 'black'));
+                this.floatingMessages.push(new FloatingMessage(this.ctx, 620, 165, '+' + popUpFinishedWorks, 20, 'black'));
             }
         }
 
-        this.startTimer();        
+        if (this.totalPrinters == 0){
+            this.floatingMessages.push(new FloatingMessage(this.ctx, 25, 50, '!!!', 40, 'red'));  
+        }
+
+        if (this.totalWorkers == 0){
+            this.floatingMessages.push(new FloatingMessage(this.ctx, 185, 50, '!!!', 40, 'red'));  
+        }
+
+        if (this.totalPhones == 0){
+            this.floatingMessages.push(new FloatingMessage(this.ctx, 315, 50, '!!!', 40, 'red'));  
+        }
+
+        this.startTimer();
     }
 
-    startTimer(){
+    startTimer() {
         this.timer = setTimeout(() => this.tick(), this.tickTime);
     }
 
@@ -159,7 +174,7 @@ export class Game {
 
     updateInfo(arr) {
         arr.push(`Score: ${this.score}`);
-        arr.push(`Playing: ${this.playing}`);
+        arr.push(`Playing: ${this.isPlaying}`);
         // arr.push(`Floors: ${this.floors}`);
         // arr.push(`Sec left: ${this.secondsLeft}`);
         // arr.push(`Demand: ${this.printerDemand} / ${this.phoneDemand} / ${this.workerDemand}`);
@@ -182,7 +197,7 @@ export class Game {
     }
 
     getItemCost() {
-        return Math.floor(this.floors * 0.5) + 8;
+        return Math.floor(this.floors * 0.8) + 9;
     }
 
     _randomIntFromInterval(min, max) { // min and max included 

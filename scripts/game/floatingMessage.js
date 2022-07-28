@@ -8,6 +8,7 @@ export class FloatingMessage {
         this.lifespan = 0;
         this.color = color;
         this.opacity = 1;
+        console.log(value);
     }
     update() {
         this.y -= 0.5;
@@ -21,7 +22,7 @@ export class FloatingMessage {
     draw() {
         this.ctx.globalAlpha = this.opacity;
         this.ctx.fillStyle = this.color;
-        // this.ctx.font = this.size + 'px Tibia';
+        this.ctx.font = this.size + 'px Oswald';
         this.ctx.fillText(this.value, this.x, this.y);
 
         //reset opacity
