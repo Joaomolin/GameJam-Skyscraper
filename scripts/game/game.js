@@ -4,7 +4,7 @@ export class Game {
     constructor(ctx) {
         this.ctx = ctx;
         this.score = 0;
-        this.playing = false;
+        this.playing = true;
         this.floors = 2;
         this.paidFloor = false;
         this.floatingMessages = [];
@@ -65,6 +65,8 @@ export class Game {
     }
 
     buyFloor() {
+        if (!this.playing) return;
+
         if (!this.paidFloor) {
             const cost = this.getFloorCost();
             if (this.wallet >= cost) {
@@ -75,6 +77,8 @@ export class Game {
     }
 
     tick() {
+        if (!this.playing) return;
+
         if (this.secondsLeft > 0) {
             this.secondsLeft--;
         } else {
@@ -116,7 +120,10 @@ export class Game {
             }
         }
 
-        // this.floatingMessages.push(new FloatingMessage(this.ctx, 520, 50, '-' + popUpFinishedWorks, 30, 'black'));
+        this.startTimer();        
+    }
+
+    startTimer(){
         this.timer = setTimeout(() => this.tick(), this.tickTime);
     }
 

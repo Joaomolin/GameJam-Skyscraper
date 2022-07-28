@@ -382,10 +382,10 @@ class Button {
 }
 
 class HudItem {
-    constructor(key, mainHud, pos, sprite) {
+    constructor(key, mainHud, x, sprite) {
         this.key = key;
 
-        this.pos = new Coordinates(pos, 645);
+        this.pos = new Coordinates(x, 545);
         this.size = mainHud.hudSize;
         this.sprite = new Sprite(sprite);
         this.isSelected = false;
