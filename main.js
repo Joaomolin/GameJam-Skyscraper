@@ -110,7 +110,7 @@ function updateInfo() {
 
 function printInfo() {
   if (!shouldPrintInfo) return;
-  ctx.font = "20px open-sans";
+  ctx.font = "20px Oswald";
   ctx.textAlign = 'left';
   ctx.fillStyle = 'white';
   ctx.strokeStyle = 'black'

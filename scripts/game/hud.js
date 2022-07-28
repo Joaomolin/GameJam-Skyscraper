@@ -2,8 +2,8 @@ import { Coordinates } from "../coordinates.js";
 import { Sprite } from "../sprite/sprite.js";
 import CubeSheet from "../../assets/mapSheet.json" assert {type: 'json'};
 
-const bigFont = "30px open-sans";
-const smallFont = "20px open-sans";
+const bigFont = "30px Oswald";
+const smallFont = "20px Oswald";
 export class Hud {
 
     constructor(canvas, ctx, game, keyboard) {
@@ -263,7 +263,7 @@ export class Hud {
     }
 
     drawBuyButtons() {
-        this.ctx.font = "25px open-sans";
+        this.ctx.font = "25px Oswald";
         this.ctx.lineWidth = 5;
 
         for (let i = 0; i < this.hudBtns.length; i++) {
