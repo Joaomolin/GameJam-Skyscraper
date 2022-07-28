@@ -53,12 +53,15 @@ export class Game {
     }
 
     nextFloor() {
-        if (this.floors < 10) {
-            this.floorPrice = this.floorPrice * 1.35;
-        } else if (this.floors < 20) {
-            this.floorPrice = this.floorPrice * 1.25;
-        } else {
+        if (this.floorPrice < 100) {
+            this.floorPrice = this.floorPrice * 2;
+        } else if (this.floorPrice < 400) {
+            this.floorPrice = this.floorPrice * 1.2;
+        } else if (this.floorPrice < 800) {
             this.floorPrice = this.floorPrice * 1.1;
+        } else {
+            this.floorPrice = this.floorPrice * 1.05;
+
         }
 
         this.tickTime = this.normalTick;
