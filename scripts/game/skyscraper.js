@@ -3,6 +3,7 @@ import { Coordinates } from "../coordinates.js";
 import { Sprite } from "../sprite/sprite.js"
 import CubeSheet from "../../assets/mapSheet.json" assert {type: 'json'};
 import TilesInfo from "../../scripts/sprite/tiles.json" assert { type: "json" };
+import { FloatingMessage } from "./floatingMessage.js";
 export class Skyscraper {
     constructor(map, game, hud, keyboard) {
         this.map = map;
@@ -63,6 +64,8 @@ export class Skyscraper {
         if (this.game.wallet >= this.game.getItemCost()) {
             this.game.wallet -= this.game.getItemCost();
         } else {
+            console.log(this.map.iso.mouse)
+            this.game.floatingMessages.push(new FloatingMessage(this.game.ctx, this.map.iso.mouse.x + 5, this.map.iso.mouse.y - 5, "Out of coins!", 30, 'black'));
             return;
         }
 
@@ -82,6 +85,7 @@ export class Skyscraper {
     updateFloor() {
 
         if (this.game.secondsLeft == 0) {
+            this.game.buyFloor();
             if (this.game.paidFloor) {
                 this.game.paidFloor = false;
                 this.goToNextFloor();

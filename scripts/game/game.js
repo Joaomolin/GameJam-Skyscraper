@@ -8,6 +8,7 @@ export class Game {
         this.floors = 2;
         this.paidFloor = false;
         this.floatingMessages = [];
+        this.dragMouse = false;
 
         //Timer
         this.normalTick = 1000;
@@ -51,11 +52,11 @@ export class Game {
 
     nextFloor() {
         if (this.floors < 10) {
-            this.floorPrice = this.floorPrice * 1.5;
+            this.floorPrice = this.floorPrice * 1.4;
         } else if (this.floors < 20) {
-            this.floorPrice = this.floorPrice * 1.35;
+            this.floorPrice = this.floorPrice * 1.3;
         } else {
-            this.floorPrice = this.floorPrice * 1.25;
+            this.floorPrice = this.floorPrice * 1.15;
         }
 
         this.tickTime = this.normalTick;
@@ -174,7 +175,7 @@ export class Game {
     }
 
     getItemCost() {
-        return 8 + Math.floor(this.floors * 0, 5);
+        return Math.floor(this.floors * 0.5) + 8;
     }
 
     _randomIntFromInterval(min, max) { // min and max included 

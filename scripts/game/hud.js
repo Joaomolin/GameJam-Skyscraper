@@ -2,6 +2,8 @@ import { Coordinates } from "../coordinates.js";
 import { Sprite } from "../sprite/sprite.js";
 import CubeSheet from "../../assets/mapSheet.json" assert {type: 'json'};
 
+const bigFont = "30px open-sans";
+const smallFont = "20px open-sans";
 export class Hud {
 
     constructor(canvas, ctx, game, keyboard) {
@@ -13,8 +15,9 @@ export class Hud {
         this.hudBtns = [];
         this.selectedBtn = 1;
         this.sideButtons = [
-            new Button("Pay $10", 660, 230, 125, 40),
-            new Button("Speed up", 660, 280, 125, 40)]
+            new Button("Pay $10", 650, 230, 140, 40),
+            new Button("Speed up", 650, 280, 140, 40),
+            new Button("", 8, 100, 80, 270)]
 
         this.skyscraperSprite = new Sprite(CubeSheet.SkyScraper);
         this.stopwatchSprite = new Sprite(CubeSheet.Stopwatch);
@@ -43,10 +46,87 @@ export class Hud {
     draw() {
         this.drawHud();
         this.drawBuyButtons();
-        this.drawSettingsButtons();
+        this.drawSideButtons();
+        this.drawDemandHud();
 
     }
-    drawSettingsButtons() {
+
+    drawDemandHud(){
+        this.ctx.font = smallFont;
+        const offsetX = -410;
+        const offsetY = 55;
+
+        this.ctx.fillText(`${this.game.printerDemand}`, offsetX + 470, offsetY + 80);
+        this.ctx.drawImage(
+            this.printerSprite.img,
+            this.printerSprite.imgX,
+            this.printerSprite.imgY,
+            this.printerSprite.imgW,
+            this.printerSprite.imgH,
+            offsetX + 420, offsetY + 40,
+            48, 48 ,
+        );
+
+        this.ctx.fillText(`+`, offsetX + 425, offsetY + 100);
+        this.ctx.fillText(`${this.game.workerDemand}`, offsetX + 470, offsetY + 115);
+        this.ctx.drawImage(
+            this.workerSprite.img,
+            this.workerSprite.imgX,
+            this.workerSprite.imgY,
+            this.workerSprite.imgW,
+            this.workerSprite.imgH,
+            offsetX + 420, offsetY + 75,
+            56, 56
+        );
+
+        this.ctx.fillText(`+`, offsetX + 425, offsetY + 135);
+        this.ctx.fillText(`${this.game.phoneDemand}`, offsetX + 470, offsetY + 150);
+        this.ctx.drawImage(
+            this.phoneSprite.img,
+            this.phoneSprite.imgX,
+            this.phoneSprite.imgY,
+            this.phoneSprite.imgW,
+            this.phoneSprite.imgH,
+            offsetX + 420, offsetY + 105,
+            56, 56
+        );
+
+
+        this.ctx.fillText(`=`, offsetX + 450, offsetY + 175);
+        this.ctx.drawImage(
+            this.documentSprite.img,
+            this.documentSprite.imgX,
+            this.documentSprite.imgY,
+            this.documentSprite.imgW,
+            this.documentSprite.imgH,
+            offsetX + 425, offsetY + 165,
+            64, 64
+        );
+        this.ctx.fillText(`+`, offsetX + 430, offsetY + 230);
+        this.ctx.drawImage(
+            this.workerSprite.img,
+            this.workerSprite.imgX,
+            this.workerSprite.imgY,
+            this.workerSprite.imgW,
+            this.workerSprite.imgH,
+            offsetX + 430, offsetY + 205,
+            64, 64
+        );
+
+        this.ctx.fillText(`=`, offsetX + 450, offsetY + 275);
+        this.ctx.drawImage(
+            this.coinSprite.img,
+            this.coinSprite.imgX,
+            this.coinSprite.imgY,
+            this.coinSprite.imgW,
+            this.coinSprite.imgH,
+            offsetX + 440, offsetY + 275,
+            32, 32
+        );
+
+    }
+
+    drawSideButtons() {
         for (let i = 0; i < this.sideButtons.length; i++) {
             this._drawBtn(this.sideButtons[i]);
         }
@@ -54,8 +134,8 @@ export class Hud {
     }
 
     drawHud() {
-        this.ctx.font = "30px open-sans";
-        this.ctx.fillStyle = "3d7b9a";
+        this.ctx.font = bigFont;
+        this.ctx.fillStyle = "4b94b9";
 
         this.drawDeals();
         this.drawPrinters();
@@ -68,9 +148,11 @@ export class Hud {
     }
 
     drawWallet() {
+        this.ctx.font = bigFont;
         this.ctx.fillText(this.game.wallet, 720, 165);
-        const toDisplay = this.game.paidFloor ? `Paid ${this.game.getFloorCost()}` : `Need ${this.game.getFloorCost()}`
-        this.ctx.fillText(toDisplay, 670, 210);
+        this.ctx.font = smallFont;
+        const toDisplay = this.game.paidFloor ? `Paid $${this.game.getFloorCost()}` : `Floor cost: $${this.game.getFloorCost()}`
+        this.ctx.fillText(toDisplay, 650, 210);
         this.ctx.drawImage(
             this.coinSprite.img,
             this.coinSprite.imgX,
@@ -84,6 +166,7 @@ export class Hud {
     }
 
     drawFloors() {
+        this.ctx.font = bigFont;
         this.ctx.fillText(this.game.floors, 720, 105);
         this.ctx.drawImage(
             this.skyscraperSprite.img,
@@ -98,8 +181,11 @@ export class Hud {
     }
 
     drawWorkers() {
-        this.ctx.fillText(this.game.totalWorkers, 208, 50);
-        this.ctx.fillText(`+${this.game.worker} (${this.game.workerDemand})`, 208, 80);
+        this.ctx.font = bigFont;
+        this.ctx.fillText(this.game.totalWorkers, 210, 50);
+
+        this.ctx.font = smallFont;
+        this.ctx.fillText(`+${this.game.worker}/s`, 220, 70);
         this.ctx.drawImage(
             this.workerSprite.img,
             this.workerSprite.imgX,
@@ -112,8 +198,11 @@ export class Hud {
     }
 
     drawPhones() {
-        this.ctx.fillText(this.game.totalPhones, 336, 50);
-        this.ctx.fillText(`+${this.game.phone} (${this.game.phoneDemand})`, 336, 80);
+        this.ctx.font = bigFont;
+        this.ctx.fillText(this.game.totalPhones, 335, 50);
+
+        this.ctx.font = smallFont;
+        this.ctx.fillText(`+${this.game.phone}/s`, 345, 70);
         this.ctx.drawImage(
             this.phoneSprite.img,
             this.phoneSprite.imgX,
@@ -126,8 +215,11 @@ export class Hud {
     }
 
     drawPrinters() {
+        this.ctx.font = bigFont;
         this.ctx.fillText(`${this.game.totalPrinters}`, 80, 50);
-        this.ctx.fillText(`+${this.game.printer} (${this.game.printerDemand})`, 80, 80);
+
+        this.ctx.font = smallFont;
+        this.ctx.fillText(`+${this.game.printer}/s`, 90, 70);
         this.ctx.drawImage(
             this.printerSprite.img,
             this.printerSprite.imgX,
@@ -140,19 +232,22 @@ export class Hud {
     }
 
     drawDeals() {
-        this.ctx.fillText(`${this.game.finishedDeals}`, 494, 50);
+        this.ctx.font = bigFont;
+        this.ctx.fillText(`${this.game.finishedDeals}`, 480, 45);
         this.ctx.drawImage(
             this.documentSprite.img,
             this.documentSprite.imgX,
             this.documentSprite.imgY,
             this.documentSprite.imgW,
             this.documentSprite.imgH,
-            414, -16,
-            96, 96
+            420, 0,
+            64, 64
         );
+
     }
 
     drawStopwatch() {
+        this.ctx.font = bigFont;
         this.ctx.fillText(this.game.secondsLeft, 720, 45);
         this.ctx.drawImage(
             this.stopwatchSprite.img,
@@ -164,6 +259,7 @@ export class Hud {
             -10,
             96, 96
         );
+
     }
 
     drawBuyButtons() {
@@ -173,7 +269,7 @@ export class Hud {
         for (let i = 0; i < this.hudBtns.length; i++) {
             const item = this.hudBtns[i];
             //
-            this.ctx.fillStyle = "#3d7b9a";
+            this.ctx.fillStyle = "#4b94b9";
             this.ctx.fillRect(item.pos.x, item.pos.y, item.size.x, item.size.y);
             this.ctx.strokeStyle = item.isSelected ? "#fff838" : "#1d536e";
             this.ctx.strokeRect(item.pos.x, item.pos.y, item.size.x, item.size.y);
@@ -258,12 +354,12 @@ export class Hud {
     }
 
     _drawBtn(btn) {
-        this.ctx.fillStyle = "#3d7b9a";
+        this.ctx.fillStyle = "#4b94b9";
         this.ctx.fillRect(btn.pos.x, btn.pos.y, btn.size.x, btn.size.y);
         this.ctx.strokeStyle = "#1d536e";
         this.ctx.strokeRect(btn.pos.x, btn.pos.y, btn.size.x, btn.size.y);
         this.ctx.fillStyle = "black";
-        this.ctx.fillText(btn.text, btn.pos.x + 15, btn.pos.y + 27);
+        this.ctx.fillText(btn.text, btn.pos.x + 10, btn.pos.y + 27);
     }
 }
 
