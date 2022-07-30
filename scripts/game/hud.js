@@ -12,6 +12,8 @@ export class Hud {
         this.game = game;
         this.keyboard = keyboard;
 
+        this.drawRestartBtn = false;
+        this.restartBtn = new Button("Restart", 355, 300, 90, 40);
         this.hudBtns = [];
         this.selectedBtn = 1;
         this.sideButtons = [
@@ -49,11 +51,17 @@ export class Hud {
         this.drawHud();
         this.drawBuyButtons();
         this.drawSideButtons();
+        this.drawGameOver();
         this.drawDemandHud();
-
     }
 
-    drawDemandHud(){
+    drawGameOver() {
+        if (this.drawRestartBtn){
+            this._drawBtn(this.restartBtn);
+        }
+    }
+
+    drawDemandHud() {
         this.ctx.font = smallFont;
         const offsetX = -410;
         const offsetY = 55;
@@ -354,12 +362,16 @@ export class Hud {
         }
 
         if (this.sideButtons[idx++].interacted(mouse)) {
-            if (this.game.isPlaying){
+            if (this.game.isPlaying) {
                 this.game.isPlaying = false;
             } else {
                 this.game.isPlaying = true;
             }
         }
+
+        if (this.restartBtn.interacted(mouse)){
+            if (this.drawRestartBtn) this.game.gameOver = true;
+        } 
 
 
     }

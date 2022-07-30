@@ -11,11 +11,22 @@ export class Skyscraper {
         this.hud = hud;
         this.keyboard = keyboard;
 
+        this.resetGame = false;
 
         this.cloudSprites = [CubeSheet.CloudBig1, CubeSheet.CloudBig2, CubeSheet.CloudBig3, CubeSheet.CloudBig4, CubeSheet.CloudSmall1, CubeSheet.CloudSmall2, CubeSheet.CloudSmall3]
         this.clouds = [];
         this.cloudsPos = [];
         this.startClouds();
+    }
+
+    handleRestartGame(){
+        if(this.game.gameOver){
+
+            this.hud.drawRestartBtn = false;
+            this.map.clearPlacedTiles();
+            this.game.resetGame();
+        }
+
     }
 
     startClouds() {
@@ -89,7 +100,9 @@ export class Skyscraper {
                 this.game.paidFloor = false;
                 this.goToNextFloor();
             } else {
+                this.hud.drawRestartBtn = true;
                 console.log("Game Over");
+                return;
             }
         }
 
@@ -106,14 +119,10 @@ export class Skyscraper {
     }
 
     goToNextFloor() {
+        this.map.clearPlacedTiles();
         this.map.game.nextFloor();
         this.hud.sideButtons[0].text = "Pay $" + this.map.game.getFloorCost();
 
-        for (let y = 0; y < this.map.placed.length; y++) {
-            for (let x = 0; x < this.map.placed[y].length; x++) {
-                this.map.placed[y][x] = new Tile(new Coordinates(x, y), TilesInfo.Invisible);
-            }
-        }
 
     }
 

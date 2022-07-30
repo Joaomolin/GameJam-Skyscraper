@@ -22,6 +22,14 @@ export class Map {
     this.createScene();
   }
 
+  clearPlacedTiles(){
+    for (let y = 0; y < this.placed.length; y++) {
+      for (let x = 0; x < this.placed[y].length; x++) {
+          this.placed[y][x] = new Tile(new Coordinates(x, y), TilesInfo.Invisible);
+      }
+    }
+  }
+
   mapJsonToArray(layer) {
     const mapJson = MapJson.layers[layer];
     const newMap = []

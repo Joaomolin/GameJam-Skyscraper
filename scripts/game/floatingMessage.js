@@ -8,7 +8,6 @@ export class FloatingMessage {
         this.lifespan = 0;
         this.color = color;
         this.opacity = 1;
-        console.log(value);
     }
     update() {
         this.y -= 0.5;

@@ -44,6 +44,7 @@ const skyscraper = new Skyscraper(map, game, hud, keyboard);
 function runFrame() {
   ctx.clearRect(0, 0, 10000, 10000);
 
+  skyscraper.handleRestartGame();
   skyscraper.drawClouds();
   skyscraper.updateFloor();
   map.draw();
@@ -135,9 +136,8 @@ runFrame();
 canvas.addEventListener('click', function (e) {
   if (selectedTile.coord.x === mouseGrid.x && selectedTile.coord.y === mouseGrid.y) {
     skyscraper.upgradeTile();
-  } else {
-    hud.checkMouseInteraction(mouse);
-  }
+  } 
+  hud.checkMouseInteraction(mouse);
 });
 
 document.addEventListener('keyup', function (e) {
